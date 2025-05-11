@@ -7,13 +7,11 @@ import { RequestStatus } from '../../const/request-status';
 
 type InitialState = {
   selectedCamera: Camera | null;
-  tel: string | null;
   status: RequestStatus;
 };
 
 const initialState : InitialState = {
   selectedCamera: null,
-  tel: null,
   status: RequestStatus.Idle
 };
 
@@ -24,12 +22,8 @@ const orderSlice = createSlice({
     selectCamera: (state, action: PayloadAction<Camera|null>) => {
       state.selectedCamera = action.payload;
     },
-    selectPhone: (state, action: PayloadAction<string|null>) => {
-      state.tel = action.payload;
-    },
     resetOrder: (state) => {
       state.selectedCamera = null;
-      state.tel = null;
       state.status = RequestStatus.Idle;
     }
   },
@@ -49,10 +43,10 @@ const orderSlice = createSlice({
 
 
 const orderReducer = orderSlice.reducer;
-const {selectCamera, selectPhone, resetOrder } = orderSlice.actions;
+const {selectCamera, resetOrder } = orderSlice.actions;
 
 const orderSliceAction = {
   sendOrderAction
 };
 
-export { orderReducer, selectCamera, selectPhone, orderSliceAction, resetOrder, initialState};
+export { orderReducer, selectCamera, orderSliceAction, resetOrder, initialState};
