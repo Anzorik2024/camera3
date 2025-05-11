@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from'react';
+import { useState, useEffect } from'react';
 
 import Header from '../../components/header/header';
 import Banner from '../../components/banner/banner';
@@ -27,7 +27,6 @@ import useCheckSearchParams from '../../hooks/use-check-search-params';
 
 function MainPage ():JSX.Element {
   const [isModalAddCameraToBasketOpen, setModalAddCameraToBasketOpen] = useState<boolean>(false);
-  const modalRef = useRef(null);
   const dispatch = useAppDispatch();
 
   useCheckSearchParams();
@@ -92,9 +91,10 @@ function MainPage ():JSX.Element {
           </section>
         </div>
 
-        <div className={`modal ${isModalAddCameraToBasketOpen ? 'is-active' : ''}`} ref={modalRef}>
+        {isModalAddCameraToBasketOpen &&
+        <div className='modal is-active'>
           <BasketModal onCloseModal={closeAddCameraToBasketModal} isOpen={isModalAddCameraToBasketOpen} />
-        </div>
+        </div>}
       </main>
       <Footer />
     </div>
