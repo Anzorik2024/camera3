@@ -15,7 +15,6 @@ const selectOrderStatus = (state: State) => state.order.status;
 
 
 const getSelectCamera = (state: State) => state.order.selectedCamera;
-const getSelectPhoneOrder = (state: State) => state.order.tel;
 
 const selectAdaptedReviews = createSelector(selectCameraReviews, (reviews: Reviews) => reviews.map(adaptReview));
 const selectSortedReviews = createSelector(selectAdaptedReviews, (reviews: ReviewsAdapt) => reviews.sort(sortReviewByTime));
@@ -37,7 +36,7 @@ const getCurrentFiltersByLevels = (state: State) => state.filter.currentFilterLe
 
 export {
   selectCameras,selectIsLoading,selectProductStatus,selectProductCamera,selectCameraReviews,selectSortedReviews,
-  getSelectCamera,getSelectPhoneOrder,selectOrderStatus,getCurrentSortType,getCurrentSortOrder,getCamerasMinPrice,
+  getSelectCamera,selectOrderStatus,getCurrentSortType,getCurrentSortOrder,getCamerasMinPrice,
   getCamerasMaxPrice,getUserEnteredBottomPrice,getUserEnteredTopPrice,getCurrentFilterByCategory,getCurrentFiltersByTypes,
   getCurrentFiltersByLevels
 };
