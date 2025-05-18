@@ -10,11 +10,11 @@ import { ModalType } from '../../const/modal-type';
 
 type BasketModalProps = {
   onCloseModal: () => void;
-  isOpen: boolean;
+  onOpenSuccessModal: () => void;
   modalType: ModalType;
 }
 
-function BasketModal({ onCloseModal, modalType, isOpen}: BasketModalProps) : JSX.Element {
+function BasketModal({onCloseModal, modalType, onOpenSuccessModal}: BasketModalProps) : JSX.Element {
   const selectedCamera = useAppSelector(getSelectCamera);
 
   const modalRef = useRef(null);
@@ -23,6 +23,18 @@ function BasketModal({ onCloseModal, modalType, isOpen}: BasketModalProps) : JSX
   const handleModalCloseClick = () => {
     onCloseModal();
   };
+
+  const getButtons = () => {
+    if (modalType === ModalType.RemoveCameraFromBasket && selectedCamera) {
+      return <RemoveItemButtons cameraId={selectedCamera.id} onCloseModal={onCloseModal}/>;
+    }
+
+    if (modalType === ModalType.AddCameraInBasket && selectedCamera) {
+      return <AddItemButton camera={selectedCamera} onCloseModal={handleModalCloseClick} onOpenSuccessModal={onOpenSuccessModal}/>;
+    }
+  };
+  const buttons = getButtons();
+
 
   // const handleButtonOrderClick = () => {
   // }; изменить с номера телефона на открывание попапа
