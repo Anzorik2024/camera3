@@ -24,6 +24,7 @@ import { filterCameras } from '../../utils/filter-cameras';
 import { getCurrentSortOrder,getCurrentSortType, getUserEnteredBottomPrice,getUserEnteredTopPrice,
   getCurrentFilterByCategory, getCurrentFiltersByTypes,getCurrentFiltersByLevels,} from '../../store/selectors';
 import EmptyPage from '../empty-page/empty-page';
+import BasketInfoModal from '../../components/basket-info-modal/basket-info-modal';
 import useCheckSearchParams from '../../hooks/use-check-search-params';
 
 function MainPage ():JSX.Element {
@@ -100,6 +101,12 @@ function MainPage ():JSX.Element {
             modalType={ModalType.AddCameraInBasket}
           />
         </div>}
+
+        {isModalSuccessAddedCameraToBasketOpen &&
+        <BasketInfoModal
+          modalType={ModalType.CameraAddedToBasket}
+          onCloseModal={handleCloseSuccessModal}
+        />}
       </main>
       <Footer />
     </div>
