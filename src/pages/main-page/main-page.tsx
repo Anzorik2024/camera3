@@ -13,6 +13,7 @@ import { useAppDispatch } from '../../hooks/use-app-dispatch';
 import { resetOrder} from '../../store/order-slice/order-slice';
 import { selectOrderStatus } from '../../store/selectors';
 import { RequestStatus } from '../../const/request-status';
+import { ModalType } from '../../const/modal-type';
 import { toast} from 'react-toastify';
 import { WarningMessage } from '../../const/warning-message';
 import Sort from '../../components/sort/sort';
@@ -93,7 +94,11 @@ function MainPage ():JSX.Element {
 
         {isModalAddCameraToBasketOpen &&
         <div className='modal is-active'>
-          <BasketModal onCloseModal={closeAddCameraToBasketModal} isOpen={isModalAddCameraToBasketOpen} />
+          <BasketModal
+            onCloseModal={closeAddCameraToBasketModal}
+            isOpen={isModalAddCameraToBasketOpen}
+            modalType={ModalType.AddCameraInBasket}
+          />
         </div>}
       </main>
       <Footer />

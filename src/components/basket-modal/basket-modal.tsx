@@ -6,15 +6,16 @@ import useTrapFocus from '../../hooks/use-trap-focus';// переделать д
 import { useAppSelector } from '../../hooks/use-app-selector';
 import { getSelectCamera } from '../../store/selectors';
 import BasketItemShort from '../basket-item-short/basket-item-short';
+import { ModalType } from '../../const/modal-type';
 
 type BasketModalProps = {
   onCloseModal: () => void;
   isOpen: boolean;
+  modalType: ModalType;
 }
 
-function BasketModal({ onCloseModal, isOpen}: BasketModalProps) : JSX.Element {
+function BasketModal({ onCloseModal, modalType, isOpen}: BasketModalProps) : JSX.Element {
   const selectedCamera = useAppSelector(getSelectCamera);
-
 
   const modalRef = useRef(null);
   const buttonCloseRef = useRef<HTMLButtonElement>(null);
@@ -35,7 +36,7 @@ function BasketModal({ onCloseModal, isOpen}: BasketModalProps) : JSX.Element {
       <div className="modal__overlay"></div>
       <div className="modal__content" ref={modalRef}>
         <p className="title title--h4">Свяжитесь со мной</p>
-        {selectedCamera && <BasketItemShort camera={selectedCamera}/>}
+        {selectedCamera && <BasketItemShort camera={selectedCamera} modalType={modalType}/>}
         <button className="cross-btn" type="button" aria-label="Закрыть попап" onClick={handleModalCloseClick} ref={buttonCloseRef}>
           <svg width="10" height="10" aria-hidden="true">
             <use xlinkHref="#icon-close"></use>
