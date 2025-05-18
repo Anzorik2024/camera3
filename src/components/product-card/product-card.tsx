@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { Camera } from '../../types/camera';
+import { useAppSelector } from '../../hooks/use-app-selector';
+import { getCamerasInTheBasket } from '../../store/selectors';
 import { formatPrice, capitalizeFirstLetter } from '../../utils/format';
 import { useAppDispatch } from '../../hooks/use-app-dispatch';
 import IconStar from '../icon-star/icon-star';
@@ -22,6 +24,11 @@ function ProductCard ({camera, onAddCameraInBasketButtonClick } :ProductCardProp
   const {name, rating, price, previewImg, previewImg2x, previewImgWebp, previewImgWebp2x, reviewCount,id} = camera;
 
   const dispatch = useAppDispatch();
+
+  const camerasInTheBasket = useAppSelector(getCamerasInTheBasket);
+  const isAlreadyInTheBasket = camerasInTheBasket.some((item) => item.id === id);
+
+  console.log(isAlreadyInTheBasket);
 
   const handleAddCameraInBasketButtonClick = () => {
     dispatch(selectCamera(camera));
