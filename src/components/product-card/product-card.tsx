@@ -71,7 +71,11 @@ function ProductCard ({camera, onAddCameraInBasketButtonClick } :ProductCardProp
         </p>
       </div>
       <div className="product-card__buttons">
-        <button className="btn btn--purple product-card__btn" type="button" onClick={handleAddCameraInBasketButtonClick}>
+        <button
+          className="btn btn--purple product-card__btn"
+          type="button"
+          onClick={handleAddCameraInBasketButtonClick}
+        >
           Купить
         </button>
         <Link className="btn btn--transparent" to = {`${AppRoute.Product}/${id}?${ComponentName.Tab}=${DEFAULT_TABS_TYPE}`}>
