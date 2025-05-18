@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import { ModalType } from '../../const/modal-type';
 import useOnClickOutside from '../../hooks/use-on-click-outside';
 import { useKeydownEscClose } from '../../hooks/use-keydown-esc-close';
+import GoToBasketButtons from '../go-to-basket-buttons/go-to-basket-buttons';
 
 
 type BasketInfoModalProps = {
@@ -40,8 +41,7 @@ function BasketInfoModal({ onCloseModal, modalType, isOnProductOrBasketPage }: B
             <use xlinkHref="#icon-success"></use>
           </svg>
           <div className="modal__buttons">
-            <a className="btn btn--transparent modal__btn" href="#">Продолжить покупки</a>
-            <button className="btn btn--purple modal__btn modal__btn--fit-width">Перейти в корзину</button>
+            <GoToBasketButtons onCloseModal={handleModalClose}/>
           </div>
           <button
             className="cross-btn"
