@@ -8,6 +8,9 @@ import { getSelectCamera } from '../../store/selectors';
 import BasketItemShort from '../basket-item-short/basket-item-short';
 import { ModalType } from '../../const/modal-type';
 
+import RemoveItemButtons from '../remove-item-buttons/remove-item-buttons';
+import AddItemButton from '../add-item-button/add-item-button';
+
 type BasketModalProps = {
   onCloseModal: () => void;
   onOpenSuccessModal: () => void;

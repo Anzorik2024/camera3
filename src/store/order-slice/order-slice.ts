@@ -25,6 +25,9 @@ const orderSlice = createSlice({
       const selectedCamera = action.payload;
       state.camerasInBasket = [...state.camerasInBasket, selectedCamera].slice().sort((itemA, itemB) => itemA.id - itemB.id);
     },
+    removeSameCamerasFromBasket: (state, action: PayloadAction<number>) => {
+      state.camerasInBasket = state.camerasInBasket.filter((camera) => camera.id !== action.payload);
+    },
     selectCamera: (state, action: PayloadAction<Camera|null>) => {
       state.selectedCamera = action.payload;
     },
@@ -49,10 +52,10 @@ const orderSlice = createSlice({
 
 
 const orderReducer = orderSlice.reducer;
-const {selectCamera, resetOrder } = orderSlice.actions;
+const {selectCamera, resetOrder, addCameraToBasket, removeSameCamerasFromBasket} = orderSlice.actions;
 
 const orderSliceAction = {
   sendOrderAction
 };
 
-export { orderReducer, selectCamera, orderSliceAction, resetOrder, initialState};
+export { orderReducer, selectCamera, orderSliceAction, resetOrder, initialState, addCameraToBasket, removeSameCamerasFromBasket};
