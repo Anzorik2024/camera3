@@ -35,7 +35,7 @@ function BasketModal({ onCloseModal, modalType, isOpen}: BasketModalProps) : JSX
     <div className="modal__wrapper" data-testid='basket-modal'>
       <div className="modal__overlay"></div>
       <div className="modal__content" ref={modalRef}>
-        <p className="title title--h4">Свяжитесь со мной</p>
+        <p className="title title--h4">{modalType}</p>
         {selectedCamera && <BasketItemShort camera={selectedCamera} modalType={modalType}/>}
         <button className="cross-btn" type="button" aria-label="Закрыть попап" onClick={handleModalCloseClick} ref={buttonCloseRef}>
           <svg width="10" height="10" aria-hidden="true">
