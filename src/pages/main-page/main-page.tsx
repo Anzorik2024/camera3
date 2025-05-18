@@ -26,6 +26,7 @@ import { getCurrentSortOrder,getCurrentSortType, getUserEnteredBottomPrice,getUs
 import EmptyPage from '../empty-page/empty-page';
 import BasketInfoModal from '../../components/basket-info-modal/basket-info-modal';
 import useCheckSearchParams from '../../hooks/use-check-search-params';
+import { getCamerasInTheBasket } from '../../store/selectors';
 
 function MainPage ():JSX.Element {
   const [isModalAddCameraToBasketOpen, setModalAddCameraToBasketOpen] = useState<boolean>(false);
@@ -43,6 +44,7 @@ function MainPage ():JSX.Element {
   const currentSortByType = useAppSelector(getCurrentSortType);
   const currentSortByOrder = useAppSelector(getCurrentSortOrder);
   const isOrderStatus = useAppSelector(selectOrderStatus);
+  const camerasInTheBasket = useAppSelector(getCamerasInTheBasket);
 
   const filterAllCameras = filterCameras(camerasCatalog, currentFilterByCategory, currentFiltersByLevels, currentFiltersByType);
   const camerasFilterByPrice = filterCamerasByPrice(filterAllCameras,currentBottomPrice, currentTopPrice);
@@ -77,6 +79,7 @@ function MainPage ():JSX.Element {
   };
 
   useDisableBackground(isModalAddCameraToBasketOpen);
+  useDisableBackground(isModalSuccessAddedCameraToBasketOpen);
 
   return (
     <div className="wrapper">

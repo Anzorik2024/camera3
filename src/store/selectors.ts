@@ -33,7 +33,7 @@ const getCurrentFilterByCategory = (state: State) => state.filter.currentFilterC
 const getCurrentFiltersByTypes = (state: State) => state.filter.currentFilterTypes;
 const getCurrentFiltersByLevels = (state: State) => state.filter.currentFilterLevels;
 
-const getCamerasInTheBasket = (state: State): Cameras => state.order.camerasInBasket.slice().sort((itemA, itemB) => itemA.id - itemB.id);
+const getCamerasInTheBasket = (state: State): Cameras => state.order.camerasInBasket;
 
 
 export {

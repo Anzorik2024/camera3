@@ -52,6 +52,9 @@ function BasketModal({onCloseModal, modalType, onOpenSuccessModal}: BasketModalP
       <div className="modal__content" ref={modalRef}>
         <p className="title title--h4">{modalType}</p>
         {selectedCamera && <BasketItemShort camera={selectedCamera} modalType={modalType}/>}
+        <div className="modal__buttons">
+          {buttons}
+        </div>
         <button className="cross-btn" type="button" aria-label="Закрыть попап" onClick={handleModalCloseClick} ref={buttonCloseRef}>
           <svg width="10" height="10" aria-hidden="true">
             <use xlinkHref="#icon-close"></use>
