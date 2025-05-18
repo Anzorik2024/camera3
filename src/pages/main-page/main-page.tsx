@@ -29,6 +29,7 @@ import useCheckSearchParams from '../../hooks/use-check-search-params';
 
 function MainPage ():JSX.Element {
   const [isModalAddCameraToBasketOpen, setModalAddCameraToBasketOpen] = useState<boolean>(false);
+  const [isModalSuccessAddedCameraToBasketOpen, setModalSuccessAddedCameraToBasketOpen] = useState<boolean>(false);
   const dispatch = useAppDispatch();
 
   useCheckSearchParams();
@@ -64,7 +65,15 @@ function MainPage ():JSX.Element {
 
   const closeAddCameraToBasketModal = () => {
     setModalAddCameraToBasketOpen(false);
-    dispatch(resetOrder());
+    dispatch(resetOrder());//посмотреть правильно ли применяю
+  };
+
+  const handleOpenSuccessModal = () => {
+    setModalSuccessAddedCameraToBasketOpen(true);
+  };
+
+  const handleCloseSuccessModal = () => {
+    setModalSuccessAddedCameraToBasketOpen(false);
   };
 
   useDisableBackground(isModalAddCameraToBasketOpen);
@@ -97,7 +106,7 @@ function MainPage ():JSX.Element {
         <div className='modal is-active'>
           <BasketModal
             onCloseModal={closeAddCameraToBasketModal}
-            isOpen={isModalAddCameraToBasketOpen}
+            onOpenSuccessModal={handleOpenSuccessModal}
             modalType={ModalType.AddCameraInBasket}
           />
         </div>}
