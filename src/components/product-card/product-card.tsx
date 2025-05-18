@@ -11,6 +11,7 @@ import { AppRoute } from '../../const/app-route';
 import { selectCamera} from '../../store/order-slice/order-slice';
 import { ComponentName } from '../../const/component-name';
 import { DEFAULT_TABS_TYPE } from '../../const/tabs-buttons';
+import InBasketLink from '../in-basket-link/in-basket-link';
 
 type ProductCardProps = {
   camera: Camera;
@@ -27,8 +28,6 @@ function ProductCard ({camera, onAddCameraInBasketButtonClick } :ProductCardProp
 
   const camerasInTheBasket = useAppSelector(getCamerasInTheBasket);
   const isAlreadyInTheBasket = camerasInTheBasket.some((item) => item.id === id);
-
-  console.log(isAlreadyInTheBasket);
 
   const handleAddCameraInBasketButtonClick = () => {
     dispatch(selectCamera(camera));
@@ -71,13 +70,14 @@ function ProductCard ({camera, onAddCameraInBasketButtonClick } :ProductCardProp
         </p>
       </div>
       <div className="product-card__buttons">
-        <button
-          className="btn btn--purple product-card__btn"
-          type="button"
-          onClick={handleAddCameraInBasketButtonClick}
-        >
-          Купить
-        </button>
+        { isAlreadyInTheBasket ? <InBasketLink/> :
+          <button
+            className="btn btn--purple product-card__btn"
+            type="button"
+            onClick={handleAddCameraInBasketButtonClick}
+          >
+                      Купить
+          </button>}
         <Link className="btn btn--transparent" to = {`${AppRoute.Product}/${id}?${ComponentName.Tab}=${DEFAULT_TABS_TYPE}`}>
           Подробнее
         </Link>
