@@ -2,13 +2,23 @@ import { Camera } from '../../types/camera';
 import CameraRating from '../camera-rating/camera-rating';
 import { formatPrice } from '../../utils/format';
 import Tabs from '../tabs/tabs';
+import { useAppDispatch } from '../../hooks/use-app-dispatch';
+import { selectCamera } from '../../store/order-slice/order-slice';
 
 
 type CameraInfoProps = {
   camera: Camera ;
+  onAddCameraInBasketButtonClick: () => void;
 }
-function CameraInfo ({camera}: CameraInfoProps) : JSX.Element {
+function CameraInfo ({camera, onAddCameraInBasketButtonClick}: CameraInfoProps) : JSX.Element {
   const { name, reviewCount, rating, price, previewImg, previewImgWebp, previewImg2x, previewImgWebp2x, category } = camera;
+
+  const dispatch = useAppDispatch();
+
+  const handleAddToBasketButtonClick = () => {
+    dispatch(selectCamera(camera));
+    onAddCameraInBasketButtonClick();
+  };
 
   return (
     <section className="product">
@@ -42,6 +52,7 @@ function CameraInfo ({camera}: CameraInfoProps) : JSX.Element {
           <button
             className="btn btn--purple"
             type="button"
+            onClick={handleAddToBasketButtonClick}
           >
             <svg width={24} height={16} aria-hidden="true">
               <use xlinkHref="#icon-add-basket" />
