@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import SearchForm from '../search-form/search-form';
+import BasketCounter from '../basket-counter/basket-counter';
 function Header () : JSX.Element {
   return (
     <header className="header" id="header" data-testid="header">
@@ -22,6 +23,7 @@ function Header () : JSX.Element {
           </ul>
         </nav>
         <SearchForm />
+        <BasketCounter />
       </div>
 
     </header>
