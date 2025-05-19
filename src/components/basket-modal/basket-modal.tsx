@@ -22,10 +22,13 @@ function BasketModal({onCloseModal, modalType, onOpenSuccessModal}: BasketModalP
 
   const modalRef = useRef(null);
   const buttonCloseRef = useRef<HTMLButtonElement>(null);
+  const titleRef = useRef<HTMLParagraphElement>(null);
 
   const handleModalCloseClick = () => {
     onCloseModal();
   };
+
+  const isOpen = modalType === ModalType.AddCameraInBasket || modalType === ModalType.RemoveCameraFromBasket;
 
   const getButtons = () => {
     if (modalType === ModalType.RemoveCameraFromBasket && selectedCamera) {
@@ -38,21 +41,17 @@ function BasketModal({onCloseModal, modalType, onOpenSuccessModal}: BasketModalP
   };
   const buttons = getButtons();
 
-
-  // const handleButtonOrderClick = () => {
-  // }; изменить с номера телефона на открывание попапа
-
   useOnClickOutside(modalRef, handleModalCloseClick);
   useKeydownEscClose(handleModalCloseClick);
-  // useTrapFocus(telInputRef, buttonCloseRef,isOpen); передалать фокустрап
+  useTrapFocus(titleRef, buttonCloseRef,isOpen);
 
   return (
     <div className="modal__wrapper" data-testid='basket-modal'>
       <div className="modal__overlay"></div>
       <div className="modal__content" ref={modalRef}>
-        <p className="title title--h4">{modalType}</p>
+        <p className="title title--h4" tabIndex={0} ref={titleRef}>{modalType}</p>
         {selectedCamera && <BasketItemShort camera={selectedCamera} modalType={modalType}/>}
-        <div className="modal__buttons">
+        <div className="modal__buttons" >
           {buttons}
         </div>
         <button className="cross-btn" type="button" aria-label="Закрыть попап" onClick={handleModalCloseClick} ref={buttonCloseRef}>

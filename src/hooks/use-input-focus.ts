@@ -1,13 +1,13 @@
 import {useEffect} from 'react';
 
-const useInputFocus = (isOpen:boolean, inputRef: React.RefObject<HTMLInputElement>) => {
+const useElementFocus = (isOpen:boolean, elementRef: React.RefObject<HTMLElement>) => {
   useEffect(() => {
-    if (inputRef.current) {
-      if (inputRef.current) {
-        inputRef.current.style.visibility = isOpen ? 'visible' : 'hidden';
-        inputRef.current?.focus();
+    if (elementRef.current) {
+      if (elementRef.current) {
+        elementRef.current.style.visibility = isOpen ? 'visible' : 'hidden';
+        elementRef.current?.focus();
       }
     }
-  }, [isOpen, inputRef]);
+  }, [isOpen, elementRef]);
 };
-export default useInputFocus;
+export default useElementFocus;
