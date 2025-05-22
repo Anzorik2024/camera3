@@ -35,3 +35,8 @@ export type Reviews = Review[];
 export type Cameras = Camera[];
 
 export type Promo = Pick<Camera, 'id'| 'name'| 'previewImg'| 'previewImg2x'| 'previewImgWebp'| 'previewImgWebp2x'>;
+
+export type SeveralCameras = {
+  camera: Camera;
+  camerasAmount: number|string;
+}

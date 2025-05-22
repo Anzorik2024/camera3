@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { sendOrderAction } from '../thunks/product-process/product-process';
 
-import { Camera, Cameras } from '../../types/camera';
+import { Camera, Cameras, SeveralCameras } from '../../types/camera';
 import { RequestStatus } from '../../const/request-status';
 
 
@@ -32,6 +32,16 @@ const orderSlice = createSlice({
     removeSameCamerasFromBasket: (state, action: PayloadAction<number>) => {
       state.camerasInBasket = state.camerasInBasket.filter((camera) => camera.id !== action.payload);
     },
+    addSameCamerasToBasket: (state, action: PayloadAction<SeveralCameras>) => {
+      const {camera, camerasAmount} = action.payload;
+      const newCameras = new Array(Number(camerasAmount)).fill(camera) as Cameras;
+
+      const addedCameraFirstIndex = state.camerasInBasket.findIndex((item) => item.id === camera.id);
+      const sameCamerasInBasketAmount = state.camerasInBasket.filter((item) => item.id === camera.id).length;
+      const addedCameraLastIndex = addedCameraFirstIndex + sameCamerasInBasketAmount - 1;
+
+      state.camerasInBasket = [...state.camerasInBasket.slice(0, addedCameraFirstIndex), ...newCameras, ...state.camerasInBasket.slice(addedCameraLastIndex + 1)];
+    },
     selectCamera: (state, action: PayloadAction<Camera|null>) => {
       state.selectedCamera = action.payload;
     },
@@ -56,10 +66,10 @@ const orderSlice = createSlice({
 
 
 const orderReducer = orderSlice.reducer;
-const {selectCamera, resetOrder, addCameraToBasket, removeSameCamerasFromBasket, removeCameraFromBasket} = orderSlice.actions;
+const {addSameCamerasToBasket, selectCamera, resetOrder, addCameraToBasket, removeSameCamerasFromBasket, removeCameraFromBasket} = orderSlice.actions;
 
 const orderSliceAction = {
   sendOrderAction
 };
 
-export {removeCameraFromBasket, orderReducer, selectCamera, orderSliceAction, resetOrder, initialState, addCameraToBasket, removeSameCamerasFromBasket};
+export {addSameCamerasToBasket, removeCameraFromBasket, orderReducer, selectCamera, orderSliceAction, resetOrder, initialState, addCameraToBasket, removeSameCamerasFromBasket};

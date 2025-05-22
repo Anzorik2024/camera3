@@ -5,7 +5,7 @@ import { useAppDispatch } from '../../hooks/use-app-dispatch';
 import { addCameraToBasket } from '../../store/order-slice/order-slice';
 
 import { ProductAmount } from '../../const/const';
-import { removeCameraFromBasket } from '../../store/order-slice/order-slice';
+import { removeCameraFromBasket, addSameCamerasToBasket } from '../../store/order-slice/order-slice';
 
 type BasketQuantityProps = {
   onCameraAmountChange: (quantity: number|string) => void;
@@ -47,6 +47,28 @@ function BasketItemAmount ({onCameraAmountChange, camera, camerasAmount}: Basket
 
     addExtraCameraToBasket();
   };
+
+   const handleCameraAmountInputBlur = () => {
+    if (Number(camerasAmount) < ProductAmount.Min) {
+      //dispatch(displayError(WarningMessage.ProductsAmountLessThanMinimum));
+      onCameraAmountChange(ProductAmount.Min);
+
+      addExtraCameraToBasket();
+
+      return;
+    }
+    if (Number(camerasAmount) > ProductAmount.Max) {
+      //dispatch(displayError(WarningMessage.ProductsAmountMoreThanMaximum));
+      onCameraAmountChange(ProductAmount.Max);
+
+      dispatch(addSameCamerasToBasket({camera, camerasAmount: ProductAmount.Max}));
+
+      return;
+    }
+
+    dispatch(addSameCamerasToBasket({camera, camerasAmount}));
+  };
+
 
   return (
     <div className="quantity">
