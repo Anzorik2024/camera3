@@ -44,7 +44,12 @@ function BasketItemAmount ({onCameraAmountChange, camera, camerasAmount}: Basket
 
   return (
     <div className="quantity">
-      <button className="btn-icon btn-icon--prev" disabled aria-label="уменьшить количество товара">
+      <button
+        className="btn-icon btn-icon--prev"
+        aria-label="уменьшить количество товара"
+        disabled={isAmountMinimum}
+        onClick={handleCameraDecreaseAmountButton}
+      >
         <svg width="7" height="12" aria-hidden="true">
           <use xlinkHref="#icon-arrow"></use>
         </svg>
