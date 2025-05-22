@@ -6,6 +6,8 @@ import { addCameraToBasket } from '../../store/order-slice/order-slice';
 
 import { ProductAmount } from '../../const/const';
 import { removeCameraFromBasket, addSameCamerasToBasket } from '../../store/order-slice/order-slice';
+import {toast} from 'react-toastify';
+import { WarningMessage } from '../../const/warning-message';
 
 type BasketQuantityProps = {
   onCameraAmountChange: (quantity: number|string) => void;
@@ -15,16 +17,16 @@ type BasketQuantityProps = {
 
 function BasketItemAmount ({onCameraAmountChange, camera, camerasAmount}: BasketQuantityProps):JSX.Element {
 
-  const isAmountMinimum = Number(camerasAmount) === ProductAmount.Min; // минимальное значение
-  const isAmountMaximum = Number(camerasAmount) === ProductAmount.Max; // максимальное значение товара
+  const isAmountMinimum = Number(camerasAmount) === ProductAmount.Min;
+  const isAmountMaximum = Number(camerasAmount) === ProductAmount.Max;
 
   const dispatch = useAppDispatch();
 
   const addExtraCameraToBasket = () => {
-    dispatch(addCameraToBasket(camera)); // добавление товоара по плюс
+    dispatch(addCameraToBasket(camera));
   };
 
-  const handleCameraAmountInputChange = (event: ChangeEvent<HTMLInputElement>) => { // обработчик получение количества товара из полоя
+  const handleCameraAmountInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const currentProductAmount = Number(event.target.value);
 
     if (currentProductAmount === 0) {
@@ -50,7 +52,7 @@ function BasketItemAmount ({onCameraAmountChange, camera, camerasAmount}: Basket
 
   const handleCameraAmountInputBlur = () => {
     if (Number(camerasAmount) < ProductAmount.Min) {
-      //dispatch(displayError(WarningMessage.ProductsAmountLessThanMinimum));
+      toast.error(WarningMessage.ProductsAmountLessThanMinimum);
       onCameraAmountChange(ProductAmount.Min);
 
       addExtraCameraToBasket();
@@ -58,7 +60,7 @@ function BasketItemAmount ({onCameraAmountChange, camera, camerasAmount}: Basket
       return;
     }
     if (Number(camerasAmount) > ProductAmount.Max) {
-      //dispatch(displayError(WarningMessage.ProductsAmountMoreThanMaximum));
+      toast.error(WarningMessage.ProductsAmountMoreThanMaximum);
       onCameraAmountChange(ProductAmount.Max);
 
       dispatch(addSameCamerasToBasket({camera, camerasAmount: ProductAmount.Max}));
