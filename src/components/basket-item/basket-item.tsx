@@ -1,5 +1,8 @@
 import { Camera } from '../../types/camera';
 import { formatPrice } from '../../utils/format';
+import BasketItemAmount from '../basket-item-amount/basket-item-amount';
+import { useAppSelector } from '../../hooks/use-app-selector';
+import { getCamerasInTheBasket } from '../../store/selectors';
 
 type BasketItemProps = {
   camera: Camera;
@@ -9,6 +12,11 @@ type BasketItemProps = {
 import { capitalizeFirstLetter } from '../../utils/format';
 
 function BasketItem({ camera, onRemoveCameraFromBasketButtonClick } : BasketItemProps): JSX.Element {
+
+  const selectedCameras = useAppSelector(getCamerasInTheBasket);
+  const sameCameras = selectedCameras.filter((item) => item.id === id);
+  const sameCamerasAmount = sameCameras.length;
+
   const { previewImg,
     previewImg2x,
     previewImgWebp,
@@ -48,20 +56,7 @@ function BasketItem({ camera, onRemoveCameraFromBasketButtonClick } : BasketItem
         </ul>
       </div>
       <p className="basket-item__price"><span className="visually-hidden">Цена:</span>{formatPrice(price)} ₽</p>
-      <div className="quantity">
-        <button className="btn-icon btn-icon--prev" disabled aria-label="уменьшить количество товара">
-          <svg width="7" height="12" aria-hidden="true">
-            <use xlinkHref="#icon-arrow"></use>
-          </svg>
-        </button>
-        <label className="visually-hidden" htmlFor="counter2"></label>
-        <input type="number" id="counter2" value="1" min="1" max="99" aria-label="количество товара"/>
-        <button className="btn-icon btn-icon--next" aria-label="увеличить количество товара">
-          <svg width="7" height="12" aria-hidden="true">
-            <use xlinkHref="#icon-arrow"></use>
-          </svg>
-        </button>
-      </div>
+      <BasketItemAmount camerasAmount={sameCamerasAmount}/>
       <div className="basket-item__total-price"><span className="visually-hidden">Общая цена:</span>73 450 ₽</div>
       <button className="cross-btn" type="button" aria-label="Удалить товар">
         <svg width="10" height="10" aria-hidden="true">
