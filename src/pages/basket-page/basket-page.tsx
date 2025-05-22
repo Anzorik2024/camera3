@@ -11,6 +11,8 @@ import { getCamerasInTheBasket } from '../../store/selectors';
 import BasketItem from '../../components/basket-item/basket-item';
 import EmptyPage from '../empty-page/empty-page';
 import { WarningMessage } from '../../const/warning-message';
+import { useAppDispatch } from '../../hooks/use-app-dispatch';
+import { selectCamera } from '../../store/order-slice/order-slice';
 
 function BasketPage() : JSX.Element {
 
@@ -24,6 +26,8 @@ function BasketPage() : JSX.Element {
 
   const [isModalRemoveCameraFromBasketOpen, setModalRemoveCameraFromBasketOpen] = useState<boolean>(false);
   const [isInfoModalOpen, setInfoModalOpen] = useState<boolean>(false);
+
+  const dispatch = useAppDispatch();
 
   const handleCloseRemoveCameraFromBasketModal = () => {
     setModalRemoveCameraFromBasketOpen(false);
