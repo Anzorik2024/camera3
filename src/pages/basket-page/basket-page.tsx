@@ -1,8 +1,22 @@
+import { useAppSelector } from '../../hooks/use-app-selector';
+import { Cameras, Camera } from '../../types/camera';
+
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import BreadCrumbs from '../../components/bread-crumbs/bread-crumbs';
+import { getCamerasInTheBasket } from '../../store/selectors';
 
 function BasketPage() : JSX.Element {
+
+  const cameras = useAppSelector(getCamerasInTheBasket);
+
+  const uniqueCamerasInTheBasket = cameras.reduce(
+    (acc: Cameras, item: Camera) =>
+      acc.some((camera) => camera.id === item.id) ? acc : [...acc, item],
+    []
+  );
+
+
   return (
     <div className="wrapper">
       <Header />
