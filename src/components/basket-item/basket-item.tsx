@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Camera } from '../../types/camera';
 import { formatPrice } from '../../utils/format';
 import BasketItemAmount from '../basket-item-amount/basket-item-amount';
@@ -13,21 +14,18 @@ import { capitalizeFirstLetter } from '../../utils/format';
 
 function BasketItem({ camera, onRemoveCameraFromBasketButtonClick } : BasketItemProps): JSX.Element {
 
+  const { previewImg, previewImg2x, previewImgWebp, previewImgWebp2x, name, type, vendorCode, category, level, price, id} = camera;
+
   const selectedCameras = useAppSelector(getCamerasInTheBasket);
   const sameCameras = selectedCameras.filter((item) => item.id === id);
   const sameCamerasAmount = sameCameras.length;
 
-  const { previewImg,
-    previewImg2x,
-    previewImgWebp,
-    previewImgWebp2x,
-    name,
-    type,
-    vendorCode,
-    category,
-    level,
-    price,
-    id} = camera;
+  const [camerasAmount, setCamerasAmount] = useState<number|string>(sameCamerasAmount);
+
+
+  const handleProductAmountChange = (productAmount: number|string) => {
+    setCamerasAmount(productAmount);
+  };
 
   return (
     <li className="basket-item">
@@ -56,7 +54,7 @@ function BasketItem({ camera, onRemoveCameraFromBasketButtonClick } : BasketItem
         </ul>
       </div>
       <p className="basket-item__price"><span className="visually-hidden">Цена:</span>{formatPrice(price)} ₽</p>
-      <BasketItemAmount camerasAmount={sameCamerasAmount}/>
+      <BasketItemAmount camerasAmount={camerasAmount} camera={camera} onCameraAmountChange={handleProductAmountChange} />
       <div className="basket-item__total-price"><span className="visually-hidden">Общая цена:</span>73 450 ₽</div>
       <button className="cross-btn" type="button" aria-label="Удалить товар">
         <svg width="10" height="10" aria-hidden="true">

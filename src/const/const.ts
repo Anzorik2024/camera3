@@ -5,3 +5,7 @@ export enum PhotocameraCategoryName {
   ModalPhotocamera = 'Фотокамера'
 }
 
+export enum ProductAmount {
+  Max = 99,
+  Min = 1
+}
