@@ -64,8 +64,7 @@ function BasketItemAmount ({onCameraAmountChange, camera, camerasAmount}: Basket
       <input
         type="number"
         id="counter2"
-        value="1" min="1"
-        max="99"
+        value={camerasAmount}
         aria-label="количество товара"
         onChange={handleCameraAmountInputChange}
       />
