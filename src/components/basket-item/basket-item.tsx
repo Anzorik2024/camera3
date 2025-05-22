@@ -22,10 +22,17 @@ function BasketItem({ camera, onRemoveCameraFromBasketButtonClick } : BasketItem
 
   const [camerasAmount, setCamerasAmount] = useState<number|string>(sameCamerasAmount);
 
+  const totalPrice = formatPrice(Number(camerasAmount) * price);
+
 
   const handleProductAmountChange = (productAmount: number|string) => {
     setCamerasAmount(productAmount);
   };
+
+  const handleRemoveCameraFromBasketButtonClick = () => {
+    onRemoveCameraFromBasketButtonClick(camera.id);
+  };
+
 
   return (
     <li className="basket-item">
@@ -55,8 +62,13 @@ function BasketItem({ camera, onRemoveCameraFromBasketButtonClick } : BasketItem
       </div>
       <p className="basket-item__price"><span className="visually-hidden">Цена:</span>{formatPrice(price)} ₽</p>
       <BasketItemAmount camerasAmount={camerasAmount} camera={camera} onCameraAmountChange={handleProductAmountChange} />
-      <div className="basket-item__total-price"><span className="visually-hidden">Общая цена:</span>73 450 ₽</div>
-      <button className="cross-btn" type="button" aria-label="Удалить товар">
+      <div className="basket-item__total-price"><span className="visually-hidden">Общая цена:</span>{totalPrice} ₽</div>
+      <button
+        className="cross-btn"
+        type="button"
+        aria-label="Удалить товар"
+        onClick={handleRemoveCameraFromBasketButtonClick}
+      >
         <svg width="10" height="10" aria-hidden="true">
           <use xlinkHref="#icon-close"></use>
         </svg>

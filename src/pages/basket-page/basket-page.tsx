@@ -13,6 +13,7 @@ import EmptyPage from '../empty-page/empty-page';
 import { WarningMessage } from '../../const/warning-message';
 import { useAppDispatch } from '../../hooks/use-app-dispatch';
 import { selectCamera } from '../../store/order-slice/order-slice';
+import { removeCameraFromBasket } from '../../store/order-slice/order-slice';
 
 
 function BasketPage() : JSX.Element {
