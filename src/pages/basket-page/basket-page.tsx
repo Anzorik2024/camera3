@@ -16,6 +16,31 @@ function BasketPage() : JSX.Element {
     []
   );
 
+  const [isModalRemoveCameraFromBasketOpen, setModalRemoveCameraFromBasketOpen] = useState<boolean>(false);
+  const [isInfoModalOpen, setInfoModalOpen] = useState<boolean>(false);
+
+  const handleCloseRemoveCameraFromBasketModal = () => {
+    setModalRemoveCameraFromBasketOpen(false);
+    dispatch(selectCamera(null));
+  };
+
+  const handleRemoveCameraFromBasket = (cameraID: number) => {
+    setModalRemoveCameraFromBasketOpen(true);
+
+    const currentCamera = cameras.find((camera) => camera.id === cameraID);
+    if (currentCamera) {
+      dispatch(selectCamera(currentCamera));
+    }
+  };
+
+  const handleOpenInfoModal = () => {
+    setInfoModalOpen(true);
+  };
+
+  const handleCloseInfoModal = () => {
+    setInfoModalOpen(false);
+  };
+
 
   return (
     <div className="wrapper">
