@@ -1,4 +1,4 @@
-import { ChangeEvent } from 'react';
+import { ChangeEvent, KeyboardEvent } from 'react';
 
 import { Camera } from '../../types/camera';
 import { useAppDispatch } from '../../hooks/use-app-dispatch';
@@ -48,7 +48,7 @@ function BasketItemAmount ({onCameraAmountChange, camera, camerasAmount}: Basket
     addExtraCameraToBasket();
   };
 
-   const handleCameraAmountInputBlur = () => {
+  const handleCameraAmountInputBlur = () => {
     if (Number(camerasAmount) < ProductAmount.Min) {
       //dispatch(displayError(WarningMessage.ProductsAmountLessThanMinimum));
       onCameraAmountChange(ProductAmount.Min);
@@ -67,6 +67,12 @@ function BasketItemAmount ({onCameraAmountChange, camera, camerasAmount}: Basket
     }
 
     dispatch(addSameCamerasToBasket({camera, camerasAmount}));
+  };
+
+  const handlePriceInputBlur = (event: KeyboardEvent<HTMLInputElement>) => {
+    const inputElement = event.target as HTMLInputElement;
+    if (event.key === 'Enter') {
+      inputElement.blur();
   };
 
 
@@ -89,6 +95,8 @@ function BasketItemAmount ({onCameraAmountChange, camera, camerasAmount}: Basket
         value={camerasAmount}
         aria-label="количество товара"
         onChange={handleCameraAmountInputChange}
+        onBlur={handleCameraAmountInputBlur}
+        onKeyDown={handlePriceInputBlur}
       />
       <button
         className="btn-icon btn-icon--next"
