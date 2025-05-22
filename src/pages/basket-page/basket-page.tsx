@@ -14,6 +14,7 @@ import { WarningMessage } from '../../const/warning-message';
 import { useAppDispatch } from '../../hooks/use-app-dispatch';
 import { selectCamera } from '../../store/order-slice/order-slice';
 
+
 function BasketPage() : JSX.Element {
 
   const cameras = useAppSelector(getCamerasInTheBasket);
