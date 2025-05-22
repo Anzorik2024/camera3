@@ -42,6 +42,12 @@ function BasketItemAmount ({onCameraAmountChange, camera, camerasAmount}: Basket
     dispatch(removeCameraFromBasket(camera.id));
   };
 
+  const handleCameraIncreaseAmountButton = () => {
+    onCameraAmountChange(Number(camerasAmount) + 1);
+
+    addExtraCameraToBasket();
+  };
+
   return (
     <div className="quantity">
       <button
@@ -63,7 +69,12 @@ function BasketItemAmount ({onCameraAmountChange, camera, camerasAmount}: Basket
         aria-label="количество товара"
         onChange={handleCameraAmountInputChange}
       />
-      <button className="btn-icon btn-icon--next" aria-label="увеличить количество товара">
+      <button
+        className="btn-icon btn-icon--next"
+        aria-label="увеличить количество товара"
+        disabled={isAmountMaximum}
+        onClick={handleCameraIncreaseAmountButton}
+      >
         <svg width="7" height="12" aria-hidden="true">
           <use xlinkHref="#icon-arrow"></use>
         </svg>
