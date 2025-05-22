@@ -1,6 +1,12 @@
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const/app-route';
-function BreadCrumbs () : JSX.Element {
+import BreadCrumbsItemsCard from '../breadCrumbsItemsCard/breadCrumbsItemsCard';
+
+type BreadcrumbsProps = {
+  isBasketPage?: boolean;
+  isCatalogPage?: boolean;
+}
+function BreadCrumbs ({isBasketPage, isCatalogPage } : BreadcrumbsProps) : JSX.Element {
   return (
     <div className="breadcrumbs">
       <div className="container" data-testid="breadcrumbs-container">
@@ -12,8 +18,11 @@ function BreadCrumbs () : JSX.Element {
               </svg>
             </Link>
           </li>
-          <li className="breadcrumbs__item"><span className="breadcrumbs__link breadcrumbs__link--active">Каталог</span>
-          </li>
+          {isBasketPage && <BreadCrumbsItemsCard/>}
+          {isCatalogPage &&
+          <li className="breadcrumbs__item">
+            <span className="breadcrumbs__link breadcrumbs__link--active">Каталог</span>
+          </li>}
         </ul>
       </div>
     </div>

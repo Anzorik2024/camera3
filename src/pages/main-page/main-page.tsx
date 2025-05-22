@@ -85,7 +85,7 @@ function MainPage ():JSX.Element {
       <main>
         <Banner/>
         <div className="page-content">
-          <BreadCrumbs/>
+          <BreadCrumbs isCatalogPage/>
           <section className="catalog">
             <div className="container">
               <h1 className="title title--h2">Каталог фото- и видеотехники</h1>
