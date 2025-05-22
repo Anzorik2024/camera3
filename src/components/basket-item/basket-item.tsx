@@ -1,37 +1,53 @@
 import { Camera } from '../../types/camera';
+import { formatPrice } from '../../utils/format';
+
 type BasketItemProps = {
   camera: Camera;
   onRemoveCameraFromBasketButtonClick: (id: number) => void;
 }
 
+import { capitalizeFirstLetter } from '../../utils/format';
+
 function BasketItem({ camera, onRemoveCameraFromBasketButtonClick } : BasketItemProps): JSX.Element {
+  const { previewImg,
+    previewImg2x,
+    previewImgWebp,
+    previewImgWebp2x,
+    name,
+    type,
+    vendorCode,
+    category,
+    level,
+    price,
+    id} = camera;
+
   return (
     <li className="basket-item">
       <div className="basket-item__img">
         <picture>
           <source
             type="image/webp"
-            srcSet="img/content/das-auge.webp, img/content/das-auge@2x.webp 2x"
+            srcSet={`/${previewImgWebp}, /${previewImgWebp2x} 2x`}
           />
           <img
-            src="img/content/das-auge.jpg"
-            srcSet="img/content/das-auge@2x.jpg 2x"
-            width="140"
-            height="120"
-            alt="Ретрокамера «Das Auge IV»"
+            src={`/${previewImg}`}
+            srcSet={`/${previewImg2x} 2x`}
+            width={140}
+            height={120}
+            alt={name}
           />
         </picture>
       </div>
       <div className="basket-item__description">
-        <p className="basket-item__title">Ретрокамера «Das Auge IV»</p>
+        <p className="basket-item__title">{`${capitalizeFirstLetter(category)} «${capitalizeFirstLetter(name)}»`}</p>
         <ul className="basket-item__list">
-          <li className="basket-item__list-item"><span className="basket-item__article">Артикул:</span> <span className="basket-item__number">DA4IU67AD5</span>
+          <li className="basket-item__list-item"><span className="basket-item__article">Артикул:</span> <span className="basket-item__number">{vendorCode}</span>
           </li>
-          <li className="basket-item__list-item">Коллекционная видеокамера</li>
-          <li className="basket-item__list-item">Любительский уровень</li>
+          <li className="basket-item__list-item"> {type}</li>
+          <li className="basket-item__list-item">{level}</li>
         </ul>
       </div>
-      <p className="basket-item__price"><span className="visually-hidden">Цена:</span>73 450 ₽</p>
+      <p className="basket-item__price"><span className="visually-hidden">Цена:</span>{formatPrice(price)} ₽</p>
       <div className="quantity">
         <button className="btn-icon btn-icon--prev" disabled aria-label="уменьшить количество товара">
           <svg width="7" height="12" aria-hidden="true">
