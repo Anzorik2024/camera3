@@ -19,7 +19,7 @@ import { catalogReducerAction } from '../../store/catalog-slice/catalog-slice';
 
 function App (): JSX.Element {
 
-  const { fetchAllCameraAction } = useActionCreators(catalogReducerAction);
+  const { fetchAllCameraAction} = useActionCreators(catalogReducerAction);
 
   useEffect(() => {
     fetchAllCameraAction()
@@ -29,7 +29,6 @@ function App (): JSX.Element {
       });
 
   }, [fetchAllCameraAction]);
-
 
   const isLoading = useAppSelector(selectIsLoading);
 

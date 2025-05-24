@@ -40,3 +40,5 @@ export type SeveralCameras = {
   camera: Camera;
   camerasAmount: number|string;
 }
+
+

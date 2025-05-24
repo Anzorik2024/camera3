@@ -1,8 +1,28 @@
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
+import { useActionCreators } from '../../hooks/use-action-creators';
+import { catalogReducerAction } from '../../store/catalog-slice/catalog-slice';
+import {toast} from 'react-toastify';
+
+
 import { AppRoute } from '../../const/app-route';
+import { WarningMessage } from '../../const/warning-message';
 
 function Banner ():JSX.Element {
+
+  const {fetchPromoAction } = useActionCreators(catalogReducerAction);
+
+  useEffect(() => {
+    fetchPromoAction()
+      .unwrap()
+      .catch(() => {
+        toast.error(WarningMessage.DataLoadingWarning);
+      });
+
+  }, [fetchPromoAction]);
+
+
   const PRODUCT_ID = 1;
   return (
     <div className="banner">
