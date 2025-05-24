@@ -14,14 +14,14 @@ undefined,
 });
 
 export const fetchPromoAction = createAsyncThunk<
-Promo,
+Promo[],
 undefined,
 {
   extra: AxiosInstance;
 }
 >('catalog/fetchPromo',
   async (_arg, {extra: api}) => {
-    const { data } = await api.get<Promo>(ApiRoute.Promo);
+    const { data } = await api.get<Promo[]>(ApiRoute.Promo);
 
     return data;
   }
