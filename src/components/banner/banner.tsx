@@ -2,8 +2,11 @@ import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import { useActionCreators } from '../../hooks/use-action-creators';
+// import { useAppSelector } from '../../hooks/use-app-selector';
 import { catalogReducerAction } from '../../store/catalog-slice/catalog-slice';
 import {toast} from 'react-toastify';
+// import { selectPromo } from '../../store/selectors';
+// import { Promo } from '../../types/camera';
 
 
 import { AppRoute } from '../../const/app-route';
@@ -23,7 +26,15 @@ function Banner ():JSX.Element {
   }, [fetchPromoAction]);
 
 
+  // const camerasPromo = useAppSelector(selectPromo);
   const PRODUCT_ID = 1;
+
+
+  // if (Array.isArray(camerasPromo) && camerasPromo.length > 0) {
+  //   console.log((camerasPromo as Promo[])[PRODUCT_ID]);
+  // }
+
+
   return (
     <div className="banner">
       <picture>

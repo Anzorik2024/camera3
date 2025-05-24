@@ -7,6 +7,7 @@ import { sortReviewByTime } from '../utils/sort-compare';
 
 
 const selectCameras = (state: State) => state.catalog.cameras;
+const selectPromo = (state: State) => state.catalog.promo;
 const selectIsLoading = (state: State) => state.catalog.isLoading;
 const selectProductCamera = (state: State) => state.product.camera;
 const selectCameraReviews = (state: State) => state.product.reviews;
@@ -40,5 +41,5 @@ export {
   selectCameras,selectIsLoading,selectProductStatus,selectProductCamera,selectCameraReviews,selectSortedReviews,
   getSelectCamera,selectOrderStatus,getCurrentSortType,getCurrentSortOrder,getCamerasMinPrice,
   getCamerasMaxPrice,getUserEnteredBottomPrice,getUserEnteredTopPrice,getCurrentFilterByCategory,getCurrentFiltersByTypes,
-  getCurrentFiltersByLevels,getCamerasInTheBasket
+  getCurrentFiltersByLevels,getCamerasInTheBasket,selectPromo
 };
