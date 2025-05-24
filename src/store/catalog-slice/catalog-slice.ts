@@ -7,7 +7,7 @@ import { Cameras, Promo } from '../../types/camera';
  type InitialState = {
   cameras: Cameras | [];
   isLoading: boolean;
-  promo: Promo | [];
+  promo: Promo[];
 };
 
 const initialState : InitialState = {
