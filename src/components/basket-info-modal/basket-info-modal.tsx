@@ -7,7 +7,6 @@ import IconCheckMark from '../icon-check-mark/icon-check-mark';
 import IconReviewOrOrder from '../icon-review-or-order/icon-review-or-order';
 import ReturnToCatalogButton from '../return-to-catalog-button/return-to-catalog-button';
 
-
 type BasketInfoModalProps = {
   onCloseModal: () => void;
   modalType: ModalType;

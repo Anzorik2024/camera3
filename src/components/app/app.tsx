@@ -15,11 +15,22 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import { AppRoute } from '../../const/app-route';
 import { catalogReducerAction } from '../../store/catalog-slice/catalog-slice';
+import { getCamerasInTheBasket } from '../../store/selectors';
 
 
 function App (): JSX.Element {
 
   const { fetchAllCameraAction} = useActionCreators(catalogReducerAction);
+
+  const camerasInTheBasket = useAppSelector(getCamerasInTheBasket);
+
+  useEffect(() => {
+    if(camerasInTheBasket.length > 0) {
+      localStorage.setItem('cart', JSON.stringify(camerasInTheBasket));
+      console.log(camerasInTheBasket);
+    }
+  }, [camerasInTheBasket]); // Зависимость от cartItems
+
 
   useEffect(() => {
     fetchAllCameraAction()
