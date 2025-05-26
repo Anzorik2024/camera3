@@ -1,5 +1,3 @@
-import { useEffect, useState } from 'react';
-
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const/app-route';
 import { useAppSelector } from '../../hooks/use-app-selector';
