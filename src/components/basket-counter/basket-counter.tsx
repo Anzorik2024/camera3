@@ -4,30 +4,12 @@ import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const/app-route';
 import { useAppSelector } from '../../hooks/use-app-selector';
 import { getCamerasInTheBasket } from '../../store/selectors';
-import { Cameras } from '../../types/camera';
+
 
 function BasketCounter():JSX.Element {
 
-  const [cartItems, setCartItems] = useState<Cameras>([]);
-
   const camerasInTheBasket = useAppSelector(getCamerasInTheBasket);
-
-
-  const storedCart = localStorage.getItem('cart');
-
-  useEffect(() => {
-    const loadCart = () => {
-      if (storedCart && camerasInTheBasket.length > 0) {
-        const parsedCart = JSON.parse(storedCart) as Cameras;
-        setCartItems(parsedCart);
-      }
-    };
-
-    loadCart();
-  }, [storedCart, camerasInTheBasket]);
-
-  const basketCount = cartItems.length;
-
+  const basketCount = camerasInTheBasket.length;
 
   return(
     <Link className="header__basket-link" to={AppRoute.Basket}>

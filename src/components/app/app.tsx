@@ -25,8 +25,6 @@ function App (): JSX.Element {
 
   const { fetchAllCameraAction} = useActionCreators(catalogReducerAction);
   const camerasInTheBasket = useAppSelector(getCamerasInTheBasket);
-
-
   const dispatch = useAppDispatch();
 
   useEffect(() => {
