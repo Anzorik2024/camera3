@@ -18,17 +18,22 @@ import BasketInfoModal from '../../components/basket-info-modal/basket-info-moda
 import { ModalType } from '../../const/modal-type';
 import BasketSummary from '../../components/basket-summary/basket-summary';
 import useDisableBackground from '../../hooks/use-disable-background';
+import { getOrderSendingStatus } from '../../store/selectors';
+import Spiner from '../../components/spiner/spiner';
+import { FetchStatus } from '../../const/fetch-status';
 
 
 function BasketPage() : JSX.Element {
 
   const cameras = useAppSelector(getCamerasInTheBasket);
+  const isOrderSendingStatus = useAppSelector(getOrderSendingStatus);
 
   const uniqueCamerasInTheBasket = cameras.reduce(
     (acc: Cameras, item: Camera) =>
       acc.some((camera) => camera.id === item.id) ? acc : [...acc, item],
     []
   );
+
 
   const [isModalRemoveCameraFromBasketOpen, setModalRemoveCameraFromBasketOpen] = useState<boolean>(false);
   const [isInfoModalOpen, setInfoModalOpen] = useState<boolean>(false);
@@ -60,6 +65,12 @@ function BasketPage() : JSX.Element {
 
   useDisableBackground(isModalRemoveCameraFromBasketOpen);
   useDisableBackground(isInfoModalOpen);
+
+  if (isOrderSendingStatus === FetchStatus.Loading) {
+    return (
+      <Spiner />
+    );
+  }
 
   return (
     <div className="wrapper">

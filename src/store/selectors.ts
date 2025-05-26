@@ -4,6 +4,7 @@ import { Reviews, ReviewsAdapt, Cameras } from '../types/camera';
 
 import { adaptReview } from '../utils/adapt-review';
 import { sortReviewByTime } from '../utils/sort-compare';
+import { FetchStatus } from '../const/fetch-status';
 
 
 const selectCameras = (state: State) => state.catalog.cameras;
@@ -35,11 +36,12 @@ const getCurrentFiltersByTypes = (state: State) => state.filter.currentFilterTyp
 const getCurrentFiltersByLevels = (state: State) => state.filter.currentFilterLevels;
 
 const getCamerasInTheBasket = (state: State): Cameras => state.order.camerasInBasket;
+const getOrderSendingStatus = (state: State): FetchStatus => state.order.orderSendingStatus;
 
 
 export {
   selectCameras,selectIsLoading,selectProductStatus,selectProductCamera,selectCameraReviews,selectSortedReviews,
   getSelectCamera,selectOrderStatus,getCurrentSortType,getCurrentSortOrder,getCamerasMinPrice,
   getCamerasMaxPrice,getUserEnteredBottomPrice,getUserEnteredTopPrice,getCurrentFilterByCategory,getCurrentFiltersByTypes,
-  getCurrentFiltersByLevels,getCamerasInTheBasket,selectPromo
+  getCurrentFiltersByLevels,getCamerasInTheBasket,selectPromo, getOrderSendingStatus
 };

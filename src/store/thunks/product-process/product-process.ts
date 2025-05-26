@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
 
 import { ApiRoute } from '../../../const/api-route';
-import { Camera, Promo } from '../../../types/camera';
+import { Camera} from '../../../types/camera';
 import { Reviews } from '../../../types/camera';
 import { Order } from '../../../types/order';
 

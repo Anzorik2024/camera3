@@ -3,18 +3,21 @@ import { sendOrderAction } from '../thunks/product-process/product-process';
 
 import { Camera, Cameras, SeveralCameras } from '../../types/camera';
 import { RequestStatus } from '../../const/request-status';
+import { FetchStatus } from '../../const/fetch-status';
 
 
 type InitialState = {
   camerasInBasket: Cameras;
   selectedCamera: Camera | null;
   status: RequestStatus;
+  orderSendingStatus: FetchStatus;
 };
 
 const initialState : InitialState = {
   camerasInBasket: [],
   selectedCamera: null,
-  status: RequestStatus.Idle
+  status: RequestStatus.Idle,
+  orderSendingStatus: FetchStatus.Default
 };
 
 const orderSlice = createSlice({
@@ -52,14 +55,14 @@ const orderSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(sendOrderAction.pending, (state) => {
-      state.status = RequestStatus.Loading;
+      state.orderSendingStatus = FetchStatus.Loading;
     });
     builder.addCase(sendOrderAction.fulfilled, (state) => {
-      state.status = RequestStatus.Success;
+      state.orderSendingStatus = FetchStatus.Success;
       state.camerasInBasket = [];
     });
     builder.addCase(sendOrderAction.rejected, (state) => {
-      state.status = RequestStatus.Failed;
+      state.orderSendingStatus = FetchStatus.Error;
     });
   }
 
