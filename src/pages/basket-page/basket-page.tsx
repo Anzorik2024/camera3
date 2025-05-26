@@ -17,6 +17,7 @@ import BasketModal from '../../components/basket-modal/basket-modal';
 import BasketInfoModal from '../../components/basket-info-modal/basket-info-modal';
 import { ModalType } from '../../const/modal-type';
 import BasketSummary from '../../components/basket-summary/basket-summary';
+import useDisableBackground from '../../hooks/use-disable-background';
 
 
 function BasketPage() : JSX.Element {
@@ -56,6 +57,9 @@ function BasketPage() : JSX.Element {
     setInfoModalOpen(false);
   };
 
+
+  useDisableBackground(isModalRemoveCameraFromBasketOpen);
+  useDisableBackground(isInfoModalOpen);
 
   return (
     <div className="wrapper">
