@@ -5,6 +5,7 @@ import { useKeydownEscClose } from '../../hooks/use-keydown-esc-close';
 import GoToBasketButtons from '../go-to-basket-buttons/go-to-basket-buttons';
 import IconCheckMark from '../icon-check-mark/icon-check-mark';
 import IconReviewOrOrder from '../icon-review-or-order/icon-review-or-order';
+import ReturnToCatalogButton from '../return-to-catalog-button/return-to-catalog-button';
 
 
 type BasketInfoModalProps = {
@@ -28,14 +29,21 @@ function BasketInfoModal({ onCloseModal, modalType, isOnProductOrBasketPage }: B
   //   }
   // };
 
-  //  const getIcon = () => {
+  //
+
+  //  const getButtons = () => {
   //   switch (modalType) {
   //     case ModalType.CamerasOrdered:
-  //       return <Icon isOrderedSuccessful={isOrderSendSuccess}/>;
+  //       return <ReturnToCatalogButton onCloseModal={handleModalClose} isOnProductOrBasketPage={isOnProductOrBasketPage}/>;
   //     case ModalType.CameraAddedToBasket:
-  //       return <IconCheckMark/>;
+  //       return <GoToBasketButtons onCloseModal={handleModalClose} isOnProductPage={isOnProductOrBasketPage}/>;
   //   }
   // };
+
+  // const modalButtons = getButtons();
+
+  const getButtons = () => modalType === ModalType.CameraAddedToBasket ? <GoToBasketButtons onCloseModal={handleModalClose}/> : <ReturnToCatalogButton onCloseModal={handleModalClose}/>;
+  const modalButtons = getButtons();
 
   const getIcon = () => modalType === ModalType.CameraAddedToBasket ? <IconCheckMark/> : <IconReviewOrOrder/>;
   const modalIcon = getIcon();
@@ -53,7 +61,7 @@ function BasketInfoModal({ onCloseModal, modalType, isOnProductOrBasketPage }: B
           <p className="title title--h4">{modalType}</p>
           {modalIcon}
           <div className="modal__buttons">
-            <GoToBasketButtons onCloseModal={handleModalClose}/>
+            {modalButtons}
           </div>
           <button
             className="cross-btn"

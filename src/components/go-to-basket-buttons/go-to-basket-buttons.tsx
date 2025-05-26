@@ -5,17 +5,12 @@ import { AppRoute } from '../../const/app-route';
 
 type GoToBasketButtonsProps = {
   onCloseModal: () => void;
-  // isOnProductPage?: boolean;
 }
 
 const GoToBasketButtons = ({ onCloseModal}: GoToBasketButtonsProps):JSX.Element => {
   const navigate = useNavigate();
 
   const handleCloseButtonClick = () => {
-    // if (isOnProductPage) {
-    //   navigate(`${AppRoute.Catalog}${MIN_PAGE_NUMBER}`);
-    // }
-
     onCloseModal();
   };
 
