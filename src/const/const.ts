@@ -9,3 +9,5 @@ export enum ProductAmount {
   Max = 99,
   Min = 1
 }
+
+export const CART_KEY = 'cart';

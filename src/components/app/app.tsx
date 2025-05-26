@@ -19,6 +19,7 @@ import { getCamerasInTheBasket } from '../../store/selectors';
 import { useAppDispatch } from '../../hooks/use-app-dispatch';
 import { downloadCameraToBasket } from '../../store/order-slice/order-slice';
 import { Cameras } from '../../types/camera';
+import { CART_KEY } from '../../const/const';
 
 
 function App (): JSX.Element {
@@ -28,7 +29,7 @@ function App (): JSX.Element {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    const storedCart = localStorage.getItem('cart');
+    const storedCart = localStorage.getItem(CART_KEY);
     if(camerasInTheBasket.length === 0 && storedCart) {
       const parsedCart = JSON.parse(storedCart) as Cameras;
       dispatch(downloadCameraToBasket(parsedCart));
@@ -37,7 +38,7 @@ function App (): JSX.Element {
 
   useEffect(() => {
     if(camerasInTheBasket.length > 0) {
-      localStorage.setItem('cart', JSON.stringify(camerasInTheBasket));
+      localStorage.setItem(CART_KEY, JSON.stringify(camerasInTheBasket));
     }
   }, [camerasInTheBasket]);
 
