@@ -30,6 +30,7 @@ function BasketItem({ camera, onRemoveCameraFromBasketButtonClick } : BasketItem
   };
 
   const handleRemoveCameraFromBasketButtonClick = () => {
+    localStorage.clear();
     onRemoveCameraFromBasketButtonClick(camera.id);
   };
 
