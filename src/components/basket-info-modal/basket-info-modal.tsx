@@ -29,18 +29,6 @@ function BasketInfoModal({ onCloseModal, modalType}: BasketInfoModalProps): JSX.
   // };
 
   //
-
-  //  const getButtons = () => {
-  //   switch (modalType) {
-  //     case ModalType.CamerasOrdered:
-  //       return <ReturnToCatalogButton onCloseModal={handleModalClose} isOnProductOrBasketPage={isOnProductOrBasketPage}/>;
-  //     case ModalType.CameraAddedToBasket:
-  //       return <GoToBasketButtons onCloseModal={handleModalClose} isOnProductPage={isOnProductOrBasketPage}/>;
-  //   }
-  // };
-
-  // const modalButtons = getButtons();
-
   const getButtons = () => modalType === ModalType.CameraAddedToBasket ? <GoToBasketButtons onCloseModal={handleModalClose}/> : <ReturnToCatalogButton onCloseModal={handleModalClose}/>;
   const modalButtons = getButtons();
 

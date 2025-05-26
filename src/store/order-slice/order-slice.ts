@@ -56,6 +56,7 @@ const orderSlice = createSlice({
     });
     builder.addCase(sendOrderAction.fulfilled, (state) => {
       state.status = RequestStatus.Success;
+      state.camerasInBasket = [];
     });
     builder.addCase(sendOrderAction.rejected, (state) => {
       state.status = RequestStatus.Failed;
