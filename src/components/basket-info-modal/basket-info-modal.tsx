@@ -11,10 +11,9 @@ import ReturnToCatalogButton from '../return-to-catalog-button/return-to-catalog
 type BasketInfoModalProps = {
   onCloseModal: () => void;
   modalType: ModalType;
-  isOnProductOrBasketPage?: boolean;
 }
 
-function BasketInfoModal({ onCloseModal, modalType, isOnProductOrBasketPage }: BasketInfoModalProps): JSX.Element {
+function BasketInfoModal({ onCloseModal, modalType}: BasketInfoModalProps): JSX.Element {
 
   const handleModalClose = () => {
     onCloseModal();

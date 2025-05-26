@@ -96,7 +96,6 @@ function BasketPage() : JSX.Element {
       <BasketInfoModal
         modalType={ModalType.CamerasOrdered}
         onCloseModal={handleCloseInfoModal}
-        isOnProductOrBasketPage
       />}
         </div>
 
