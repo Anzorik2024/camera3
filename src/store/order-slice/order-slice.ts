@@ -24,6 +24,9 @@ const orderSlice = createSlice({
   name: 'Order',
   initialState,
   reducers: {
+    downloadCameraToBasket:(state, action: PayloadAction<Cameras>) =>{
+      state.camerasInBasket = action.payload;
+    },
     addCameraToBasket: (state, action: PayloadAction<Camera>) => {
       const selectedCamera = action.payload;
       state.camerasInBasket = [...state.camerasInBasket, selectedCamera].slice().sort((itemA, itemB) => itemA.id - itemB.id);
@@ -70,10 +73,11 @@ const orderSlice = createSlice({
 
 
 const orderReducer = orderSlice.reducer;
-const {addSameCamerasToBasket, selectCamera, resetOrder, addCameraToBasket, removeSameCamerasFromBasket, removeCameraFromBasket} = orderSlice.actions;
+const {downloadCameraToBasket, addSameCamerasToBasket, selectCamera, resetOrder, addCameraToBasket, removeSameCamerasFromBasket, removeCameraFromBasket} = orderSlice.actions;
 
 const orderSliceAction = {
   sendOrderAction
 };
 
-export {addSameCamerasToBasket, removeCameraFromBasket, orderReducer, selectCamera, orderSliceAction, resetOrder, initialState, addCameraToBasket, removeSameCamerasFromBasket};
+export {downloadCameraToBasket,addSameCamerasToBasket, removeCameraFromBasket, orderReducer,
+  selectCamera, orderSliceAction, resetOrder, initialState, addCameraToBasket, removeSameCamerasFromBasket};

@@ -16,20 +16,32 @@ import 'react-toastify/dist/ReactToastify.css';
 import { AppRoute } from '../../const/app-route';
 import { catalogReducerAction } from '../../store/catalog-slice/catalog-slice';
 import { getCamerasInTheBasket } from '../../store/selectors';
+import { useAppDispatch } from '../../hooks/use-app-dispatch';
+import { downloadCameraToBasket } from '../../store/order-slice/order-slice';
+import { Cameras } from '../../types/camera';
 
 
 function App (): JSX.Element {
 
   const { fetchAllCameraAction} = useActionCreators(catalogReducerAction);
-
   const camerasInTheBasket = useAppSelector(getCamerasInTheBasket);
+
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    const storedCart = localStorage.getItem('cart');
+    if(camerasInTheBasket.length === 0 && storedCart) {
+      const parsedCart = JSON.parse(storedCart) as Cameras;
+      dispatch(downloadCameraToBasket(parsedCart));
+    }
+  }, [camerasInTheBasket, dispatch]);
 
   useEffect(() => {
     if(camerasInTheBasket.length > 0) {
       localStorage.setItem('cart', JSON.stringify(camerasInTheBasket));
-      console.log(camerasInTheBasket);
     }
-  }, [camerasInTheBasket]); // Зависимость от cartItems
+  }, [camerasInTheBasket]);
 
 
   useEffect(() => {

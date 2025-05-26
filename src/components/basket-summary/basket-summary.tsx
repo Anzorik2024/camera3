@@ -26,6 +26,7 @@ function BasketSummary ({ onModalInfoOpen }: BasketSummaryProps): JSX.Element {
 
 
   const handleOrderButtonClick = () => {
+    localStorage.clear();
     dispatch(sendOrderAction({coupon: null, camerasIds: camerasIds })).unwrap().then(
       () => {
         onModalInfoOpen();
