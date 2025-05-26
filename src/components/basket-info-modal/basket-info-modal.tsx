@@ -3,6 +3,8 @@ import { ModalType } from '../../const/modal-type';
 import useOnClickOutside from '../../hooks/use-on-click-outside';
 import { useKeydownEscClose } from '../../hooks/use-keydown-esc-close';
 import GoToBasketButtons from '../go-to-basket-buttons/go-to-basket-buttons';
+import IconCheckMark from '../icon-check-mark/icon-check-mark';
+import IconReviewOrOrder from '../icon-review-or-order/icon-review-or-order';
 
 
 type BasketInfoModalProps = {
@@ -26,6 +28,18 @@ function BasketInfoModal({ onCloseModal, modalType, isOnProductOrBasketPage }: B
   //   }
   // };
 
+  //  const getIcon = () => {
+  //   switch (modalType) {
+  //     case ModalType.CamerasOrdered:
+  //       return <Icon isOrderedSuccessful={isOrderSendSuccess}/>;
+  //     case ModalType.CameraAddedToBasket:
+  //       return <IconCheckMark/>;
+  //   }
+  // };
+
+  const getIcon = () => modalType === ModalType.CameraAddedToBasket ? <IconCheckMark/> : <IconReviewOrOrder/>;
+  const modalIcon = getIcon();
+
   const modalRef = useRef(null);
 
   useOnClickOutside(modalRef, handleModalClose);
@@ -37,9 +51,7 @@ function BasketInfoModal({ onCloseModal, modalType, isOnProductOrBasketPage }: B
         <div className="modal__overlay"></div>
         <div className="modal__content" ref={modalRef}>
           <p className="title title--h4">{modalType}</p>
-          <svg className="modal__icon" width="86" height="80" aria-hidden="true">
-            <use xlinkHref="#icon-success"></use>
-          </svg>
+          {modalIcon}
           <div className="modal__buttons">
             <GoToBasketButtons onCloseModal={handleModalClose}/>
           </div>

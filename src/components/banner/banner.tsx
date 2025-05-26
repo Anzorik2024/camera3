@@ -30,11 +30,6 @@ function Banner ():JSX.Element {
   const PRODUCT_ID = 1;
 
 
-  // if (Array.isArray(camerasPromo) && camerasPromo.length > 0) {
-  //   console.log((camerasPromo as Promo[])[PRODUCT_ID]);
-  // }
-
-
   return (
     <div className="banner">
       <picture>
