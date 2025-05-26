@@ -1,13 +1,16 @@
+// import { useEffect, useState } from 'react';
+
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const/app-route';
 import { useAppSelector } from '../../hooks/use-app-selector';
 import { getCamerasInTheBasket } from '../../store/selectors';
+// import { Cameras } from '../../types/camera';
 
 function BasketCounter():JSX.Element {
 
   const camerasInTheBasket = useAppSelector(getCamerasInTheBasket);
-  const basketCount = camerasInTheBasket.length;
 
+  const basketCount = camerasInTheBasket.length;
 
   return(
     <Link className="header__basket-link" to={AppRoute.Basket}>
