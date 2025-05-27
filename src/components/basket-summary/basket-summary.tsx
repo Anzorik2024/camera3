@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+
 import BasketOrder from '../basket-order/basket-order';
 import { useAppDispatch } from '../../hooks/use-app-dispatch';
 import { useAppSelector } from '../../hooks/use-app-selector';
@@ -7,6 +9,7 @@ import { sendOrderAction } from '../../store/thunks/product-process/product-proc
 import { toast } from 'react-toastify';
 import { WarningMessage } from '../../const/warning-message';
 import { CART_KEY } from '../../const/const';
+import { calculateFinalDiscountPrice } from '../../utils/calculate-final-discount-price';
 
 import { Camera } from '../../types/camera';
 
@@ -29,6 +32,15 @@ function BasketSummary ({ onModalInfoOpen }: BasketSummaryProps): JSX.Element {
   const camerasInBasketTotalPrice = camerasInBasket.reduce((acc: number, item: Camera) => acc + item.price, 0);
   const camerasInBasketWithoutPromoTotalPrice = camerasInBasketWithoutPromo.reduce((acc: number, item: Camera) => acc + item.price, 0);
 
+  const finalBasketDiscoutPrice = calculateFinalDiscountPrice(camerasInBasketWithoutPromo.length, camerasInBasketWithoutPromoTotalPrice);
+
+  const allDiscountPice = camerasInBasketWithoutPromoTotalPrice - finalBasketDiscoutPrice; // rename
+
+  useEffect(()=> {
+    console.log(allDiscountPice);
+
+  },[allDiscountPice]);
+
   const handleOrderButtonClick = () => {
     localStorage.clear();
     dispatch(sendOrderAction({coupon: null, camerasIds: camerasIds })).unwrap().then(
@@ -45,6 +57,7 @@ function BasketSummary ({ onModalInfoOpen }: BasketSummaryProps): JSX.Element {
       <div className="basket__promo">
       </div>
       <BasketOrder
+        discountPrice={allDiscountPice}
         totalPrice={camerasInBasketTotalPrice}
         isBasketEmpty={isBasketEmpty}
         onOrderButtonClick={handleOrderButtonClick}
