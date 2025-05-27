@@ -98,7 +98,6 @@ function ProductPage():JSX.Element {
         <BasketInfoModal
           modalType={ModalType.CameraAddedToBasket}
           onCloseModal={handleCloseSuccessModal}
-          isOnProductOrBasketPage
         />}
       </main>
       <ButtonToTop/>

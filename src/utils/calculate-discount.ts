@@ -9,7 +9,6 @@ export const calculateDiscount = (quantity : number , totalAmount : number) => {
 
   let baseDiscount = 0;
 
-  // Определяем базовую скидку на основе количества товаров
   if (quantity === 2) {
     baseDiscount = 3;
   } else if (quantity >= 3 && quantity <= 5) {
@@ -20,7 +19,6 @@ export const calculateDiscount = (quantity : number , totalAmount : number) => {
     baseDiscount = 15;
   }
 
-  // Определяем корректировку скидки на основе суммы заказа
   let discountAdjustment = 0;
   if (totalAmount >= 10000 && totalAmount <= 20000) {
     discountAdjustment = -1;
@@ -30,10 +28,8 @@ export const calculateDiscount = (quantity : number , totalAmount : number) => {
     discountAdjustment = -3;
   }
 
-  // Рассчитываем итоговую скидку
   let finalDiscount = baseDiscount + discountAdjustment;
 
-  // Гарантируем, что скидка не может быть отрицательной
   finalDiscount = Math.max(0, finalDiscount);
 
   return finalDiscount;

@@ -60,7 +60,6 @@ export const fakeReviews = Array.from({length: 15}, makeFakeReview);
 export const makeFakeOrder = (): Order => ({
   camerasIds: [datatype.number({ min: 1, max: 100 })],
   coupon: null,
-  tel: phone.phoneNumber(),
 });
 
 

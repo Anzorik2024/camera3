@@ -2,7 +2,7 @@ import { useRef } from 'react';
 
 import useOnClickOutside from '../../hooks/use-on-click-outside';
 import { useKeydownEscClose } from '../../hooks/use-keydown-esc-close';
-import useTrapFocus from '../../hooks/use-trap-focus';// переделать для новой кнопки
+import useTrapFocus from '../../hooks/use-trap-focus';
 import { useAppSelector } from '../../hooks/use-app-selector';
 import { getSelectCamera } from '../../store/selectors';
 import BasketItemShort from '../basket-item-short/basket-item-short';

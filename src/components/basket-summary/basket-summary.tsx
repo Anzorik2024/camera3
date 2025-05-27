@@ -22,8 +22,8 @@ function BasketSummary ({ onModalInfoOpen }: BasketSummaryProps): JSX.Element {
   const camerasInBasket = useAppSelector(getCamerasInTheBasket);
   const camerasIds = camerasInBasket.map((camera) => camera.id);
 
-  const camerasPromo = useAppSelector(selectPromo);// получение промо камер
-  const camerasPromoId: number[] = camerasPromo.map((item) => item.id);// получение промо  массива id камер
+  const camerasPromo = useAppSelector(selectPromo);
+  const camerasPromoId: number[] = camerasPromo.map((item) => item.id);
   const camerasInBasketWithoutPromo = camerasInBasket.filter((item : Camera) => !camerasPromoId.includes(item.id));
 
   const isBasketEmpty = camerasInBasket.length === 0;
@@ -32,8 +32,7 @@ function BasketSummary ({ onModalInfoOpen }: BasketSummaryProps): JSX.Element {
 
   const camerasWithoutPromoIncludingDiscoutPrice = calculateFinalDiscountPrice(camerasInBasketWithoutPromo.length, camerasInBasketWithoutPromoTotalPrice);
 
-  const allDiscountPice = camerasInBasketWithoutPromoTotalPrice - camerasWithoutPromoIncludingDiscoutPrice; // rename
-
+  const allDiscountPice = camerasInBasketWithoutPromoTotalPrice - camerasWithoutPromoIncludingDiscoutPrice;
   const handleOrderButtonClick = () => {
     localStorage.clear();
     dispatch(sendOrderAction({coupon: null, camerasIds: camerasIds })).unwrap().then(
