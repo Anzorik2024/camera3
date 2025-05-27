@@ -22,7 +22,7 @@ describe('BasketModal Component', () => {
         <MemoryRouter>
           <ProductCard
             camera={fakeCamera}
-            onAddCameraInBasketClickButton={mockOnAddCameraInBasketClickButton}
+            onAddCameraInBasketButtonClick={mockOnAddCameraInBasketClickButton}
           />
         </MemoryRouter>
       </Provider>
