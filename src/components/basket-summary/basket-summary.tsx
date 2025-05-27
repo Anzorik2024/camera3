@@ -1,5 +1,3 @@
-import { useEffect } from 'react';
-
 import BasketOrder from '../basket-order/basket-order';
 import { useAppDispatch } from '../../hooks/use-app-dispatch';
 import { useAppSelector } from '../../hooks/use-app-selector';
@@ -35,11 +33,6 @@ function BasketSummary ({ onModalInfoOpen }: BasketSummaryProps): JSX.Element {
   const camerasWithoutPromoIncludingDiscoutPrice = calculateFinalDiscountPrice(camerasInBasketWithoutPromo.length, camerasInBasketWithoutPromoTotalPrice);
 
   const allDiscountPice = camerasInBasketWithoutPromoTotalPrice - camerasWithoutPromoIncludingDiscoutPrice; // rename
-
-  useEffect(()=> {
-    console.log(allDiscountPice);
-
-  },[allDiscountPice]);
 
   const handleOrderButtonClick = () => {
     localStorage.clear();
