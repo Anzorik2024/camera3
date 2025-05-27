@@ -8,6 +8,7 @@ type BasketOrderProps = {
 }
 
 function BasketOrder({ totalPrice, isBasketEmpty, discountPrice, onOrderButtonClick}: BasketOrderProps): JSX.Element {
+  const totalPriceWithDiscount = totalPrice - discountPrice;
 
   const handleOrderButtonClick = () => {
     onOrderButtonClick();
@@ -24,7 +25,7 @@ function BasketOrder({ totalPrice, isBasketEmpty, discountPrice, onOrderButtonCl
       </p>
       <p className="basket__summary-item">
         <span className="basket__summary-text basket__summary-text--total">К оплате:</span>
-        <span className="basket__summary-value basket__summary-value--total">111 390 ₽</span>
+        <span className="basket__summary-value basket__summary-value--total">{formatPrice(totalPriceWithDiscount)} ₽</span>
       </p>
       <button
         className="btn btn--purple"

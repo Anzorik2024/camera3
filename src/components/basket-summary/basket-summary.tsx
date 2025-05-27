@@ -32,9 +32,9 @@ function BasketSummary ({ onModalInfoOpen }: BasketSummaryProps): JSX.Element {
   const camerasInBasketTotalPrice = camerasInBasket.reduce((acc: number, item: Camera) => acc + item.price, 0);
   const camerasInBasketWithoutPromoTotalPrice = camerasInBasketWithoutPromo.reduce((acc: number, item: Camera) => acc + item.price, 0);
 
-  const finalBasketDiscoutPrice = calculateFinalDiscountPrice(camerasInBasketWithoutPromo.length, camerasInBasketWithoutPromoTotalPrice);
+  const camerasWithoutPromoIncludingDiscoutPrice = calculateFinalDiscountPrice(camerasInBasketWithoutPromo.length, camerasInBasketWithoutPromoTotalPrice);
 
-  const allDiscountPice = camerasInBasketWithoutPromoTotalPrice - finalBasketDiscoutPrice; // rename
+  const allDiscountPice = camerasInBasketWithoutPromoTotalPrice - camerasWithoutPromoIncludingDiscoutPrice; // rename
 
   useEffect(()=> {
     console.log(allDiscountPice);
