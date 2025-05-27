@@ -23,16 +23,17 @@ function BasketSummary ({ onModalInfoOpen }: BasketSummaryProps): JSX.Element {
   const camerasIds = camerasInBasket.map((camera) => camera.id);
 
   const camerasPromo = useAppSelector(selectPromo);
-  const camerasPromoId: number[] = camerasPromo.map((item) => item.id);
-  const camerasInBasketWithoutPromo = camerasInBasket.filter((item : Camera) => !camerasPromoId.includes(item.id));
+  const camerasPromoIds: number[] = camerasPromo.map((item) => item.id);
+  const camerasInBasketWithOutPromo = camerasInBasket.filter((item : Camera) => !camerasPromoIds.includes(item.id));
 
   const isBasketEmpty = camerasInBasket.length === 0;
   const camerasInBasketTotalPrice = camerasInBasket.reduce((acc: number, item: Camera) => acc + item.price, 0);
-  const camerasInBasketWithoutPromoTotalPrice = camerasInBasketWithoutPromo.reduce((acc: number, item: Camera) => acc + item.price, 0);
+  const camerasInBasketWithoutPromoTotalPrice = camerasInBasketWithOutPromo.reduce((acc: number, item: Camera) => acc + item.price, 0);
 
-  const camerasWithoutPromoIncludingDiscoutPrice = calculateFinalDiscountPrice(camerasInBasketWithoutPromo.length, camerasInBasketWithoutPromoTotalPrice);
+  const camerasWithoutPromoIncludingDiscoutPrice = calculateFinalDiscountPrice(camerasInBasketWithOutPromo.length, camerasInBasketWithoutPromoTotalPrice);
 
   const allDiscountPice = camerasInBasketWithoutPromoTotalPrice - camerasWithoutPromoIncludingDiscoutPrice;
+
   const handleOrderButtonClick = () => {
     localStorage.clear();
     dispatch(sendOrderAction({coupon: null, camerasIds: camerasIds })).unwrap().then(
@@ -44,6 +45,7 @@ function BasketSummary ({ onModalInfoOpen }: BasketSummaryProps): JSX.Element {
       toast.error(WarningMessage.OrderError);
     });
   };
+
   return(
     <div className="basket__summary">
       <div className="basket__promo">
