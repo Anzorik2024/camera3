@@ -4,6 +4,9 @@ import { useAppSelector } from '../../hooks/use-app-selector';
 import { getCamerasInTheBasket } from '../../store/selectors';
 import { selectPromo } from '../../store/selectors';
 import { sendOrderAction } from '../../store/thunks/product-process/product-process';
+import { toast } from 'react-toastify';
+import { WarningMessage } from '../../const/warning-message';
+import { CART_KEY } from '../../const/const';
 
 import { Camera } from '../../types/camera';
 
@@ -32,7 +35,8 @@ function BasketSummary ({ onModalInfoOpen }: BasketSummaryProps): JSX.Element {
         onModalInfoOpen();
       }).catch(() => {
       onModalInfoOpen();
-      //добавить еще и вывод ошибки
+      localStorage.setItem(CART_KEY, JSON.stringify(camerasInBasket));
+      toast.error(WarningMessage.OrderError);
     });
   };
   return(

@@ -6,6 +6,11 @@ import GoToBasketButtons from '../go-to-basket-buttons/go-to-basket-buttons';
 import IconCheckMark from '../icon-check-mark/icon-check-mark';
 import IconReviewOrOrder from '../icon-review-or-order/icon-review-or-order';
 import ReturnToCatalogButton from '../return-to-catalog-button/return-to-catalog-button';
+import { useAppSelector } from '../../hooks/use-app-selector';
+import { getOrderSendingStatus } from '../../store/selectors';
+import { WarningMessage } from '../../const/warning-message';
+import { FetchStatus } from '../../const/fetch-status';
+
 
 type BasketInfoModalProps = {
   onCloseModal: () => void;
@@ -14,20 +19,24 @@ type BasketInfoModalProps = {
 
 function BasketInfoModal({ onCloseModal, modalType}: BasketInfoModalProps): JSX.Element {
 
+  const isOrderSendingStatus = useAppSelector(getOrderSendingStatus);
+  const isOrderSendStatusError = isOrderSendingStatus === FetchStatus.Error;
+
   const handleModalClose = () => {
     onCloseModal();
   };
 
-  // const getModalTitle = () => {
-  //   switch (modalType) {
-  //     // case ModalType.CamerasOrdered:
-  //     //   return isOrderSendStatusError ? WarningMessage.OrderError : ModalTitle.CamerasOrdered;
-  //     case ModalType.CameraAddedToBasket:
-  //       return ModalTitle.CameraAddedToBasket;
-  //   }
-  // };
+  const getModalTitle = () => {
+    switch (modalType) {
+      case ModalType.CamerasOrdered:
+        return isOrderSendStatusError ? WarningMessage.OrderError : ModalType.CamerasOrdered;
+      case ModalType.CameraAddedToBasket:
+        return ModalType.CameraAddedToBasket;
+    }
+  };
 
-  //
+  const modalTitle = getModalTitle();
+
   const getButtons = () => modalType === ModalType.CameraAddedToBasket ? <GoToBasketButtons onCloseModal={handleModalClose}/> : <ReturnToCatalogButton onCloseModal={handleModalClose}/>;
   const modalButtons = getButtons();
 
@@ -44,7 +53,7 @@ function BasketInfoModal({ onCloseModal, modalType}: BasketInfoModalProps): JSX.
       <div className="modal__wrapper">
         <div className="modal__overlay"></div>
         <div className="modal__content" ref={modalRef}>
-          <p className="title title--h4">{modalType}</p>
+          <p className="title title--h4">{modalTitle}</p>
           {modalIcon}
           <div className="modal__buttons">
             {modalButtons}

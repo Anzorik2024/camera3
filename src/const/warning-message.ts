@@ -5,4 +5,5 @@ export enum WarningMessage {
   EmptyBasketMessage = 'В данный момент корзина пуста',
   ProductsAmountMoreThanMaximum = 'Мы не продаем больше 99 единиц товара в одни руки',
   ProductsAmountLessThanMinimum = 'Введите допустимое количество товара: от 1 до 99 единиц или удалите товар из корзины',
+   OrderError = 'При отправке заказа произошла ошибка, попробуйте повторить позже',
 }
