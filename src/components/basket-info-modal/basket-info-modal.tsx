@@ -10,6 +10,7 @@ import { useAppSelector } from '../../hooks/use-app-selector';
 import { getOrderSendingStatus } from '../../store/selectors';
 import { WarningMessage } from '../../const/warning-message';
 import { FetchStatus } from '../../const/fetch-status';
+import useTrapFocus from '../../hooks/use-trap-focus';
 
 
 type BasketInfoModalProps = {
@@ -21,6 +22,8 @@ function BasketInfoModal({ onCloseModal, modalType}: BasketInfoModalProps): JSX.
 
   const isOrderSendingStatus = useAppSelector(getOrderSendingStatus);
   const isOrderSendStatusError = isOrderSendingStatus === FetchStatus.Error;
+
+  const buttonCloseRef = useRef<HTMLButtonElement>(null);
 
   const handleModalClose = () => {
     onCloseModal();
@@ -35,6 +38,8 @@ function BasketInfoModal({ onCloseModal, modalType}: BasketInfoModalProps): JSX.
     }
   };
 
+  const isOpen = modalType === ModalType.CamerasOrdered || modalType === ModalType.CameraAddedToBasket;
+
   const modalTitle = getModalTitle();
 
   const getButtons = () => modalType === ModalType.CameraAddedToBasket ? <GoToBasketButtons onCloseModal={handleModalClose}/> : <ReturnToCatalogButton onCloseModal={handleModalClose}/>;
@@ -47,12 +52,13 @@ function BasketInfoModal({ onCloseModal, modalType}: BasketInfoModalProps): JSX.
 
   useOnClickOutside(modalRef, handleModalClose);
   useKeydownEscClose(handleModalClose);
+  useTrapFocus(modalRef, buttonCloseRef,isOpen);
 
   return(
     <div className="modal is-active modal--narrow">
       <div className="modal__wrapper">
         <div className="modal__overlay"></div>
-        <div className="modal__content" ref={modalRef}>
+        <div className="modal__content" tabIndex={0} ref={modalRef}>
           <p className="title title--h4">{modalTitle}</p>
           {modalIcon}
           <div className="modal__buttons">
@@ -62,6 +68,7 @@ function BasketInfoModal({ onCloseModal, modalType}: BasketInfoModalProps): JSX.
             className="cross-btn"
             type="button"
             aria-label="Закрыть попап"
+            ref={buttonCloseRef}
             onClick={handleModalClose}
           >
             <svg width="10" height="10" aria-hidden="true">
