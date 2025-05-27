@@ -28,11 +28,11 @@ function BasketSummary ({ onModalInfoOpen }: BasketSummaryProps): JSX.Element {
 
   const isBasketEmpty = camerasInBasket.length === 0;
   const camerasInBasketTotalPrice = camerasInBasket.reduce((acc: number, item: Camera) => acc + item.price, 0);
-  const camerasInBasketWithoutPromoTotalPrice = camerasInBasketWithOutPromo.reduce((acc: number, item: Camera) => acc + item.price, 0);
+  const camerasInBasketWithOutPromoTotalPrice = camerasInBasketWithOutPromo.reduce((acc: number, item: Camera) => acc + item.price, 0);
 
-  const camerasWithoutPromoIncludingDiscoutPrice = calculateFinalDiscountPrice(camerasInBasketWithOutPromo.length, camerasInBasketWithoutPromoTotalPrice);
+  const camerasWithOutPromoIncludingDiscoutPrice = calculateFinalDiscountPrice(camerasInBasketWithOutPromo.length, camerasInBasketWithOutPromoTotalPrice);
 
-  const allDiscountPice = camerasInBasketWithoutPromoTotalPrice - camerasWithoutPromoIncludingDiscoutPrice;
+  const allDiscountPice = camerasInBasketWithOutPromoTotalPrice - camerasWithOutPromoIncludingDiscoutPrice;
 
   const handleOrderButtonClick = () => {
     localStorage.clear();
