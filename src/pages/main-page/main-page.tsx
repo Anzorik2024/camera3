@@ -44,9 +44,9 @@ function MainPage ():JSX.Element {
   const currentSortByOrder = useAppSelector(getCurrentSortOrder);
   const isOrderStatus = useAppSelector(selectOrderStatus);
 
-  const filterAllCameras = filterCameras(camerasCatalog, currentFilterByCategory, currentFiltersByLevels, currentFiltersByType);
-  const camerasFilterByPrice = filterCamerasByPrice(filterAllCameras,currentBottomPrice, currentTopPrice);
-  const camerasSort = sortCameras(camerasFilterByPrice,currentSortByType, currentSortByOrder);
+  const filteredAllCameras = filterCameras(camerasCatalog, currentFilterByCategory, currentFiltersByLevels, currentFiltersByType);
+  const camerasFilteredByPrice = filterCamerasByPrice(filteredAllCameras,currentBottomPrice, currentTopPrice);
+  const sortedCameras = sortCameras(camerasFilteredByPrice,currentSortByType, currentSortByOrder);
 
   useEffect(() => {
     if (isOrderStatus === RequestStatus.Success) {
@@ -65,7 +65,7 @@ function MainPage ():JSX.Element {
 
   const closeAddCameraToBasketModal = () => {
     setModalAddCameraToBasketOpen(false);
-    dispatch(resetOrder());//посмотреть правильно ли применяю
+    dispatch(resetOrder());
   };
 
   const handleOpenSuccessModal = () => {
@@ -90,12 +90,12 @@ function MainPage ():JSX.Element {
             <div className="container">
               <h1 className="title title--h2">Каталог фото- и видеотехники</h1>
               <div className="page-content__columns">
-                <Filters cameraFiltering={filterAllCameras}/>
+                <Filters cameraFiltering={filteredAllCameras}/>
                 <div className="catalog__content">
                   <Sort/>
-                  {camerasCatalog.length > 0 && camerasSort.length === 0 && <EmptyPage message={WarningMessage.NoProductsMatchingThisFilterWarning}/>}
+                  {camerasCatalog.length > 0 && sortedCameras.length === 0 && <EmptyPage message={WarningMessage.NoProductsMatchingThisFilterWarning}/>}
                   <div className="cards catalog__cards">
-                    {camerasSort.length > 0 && camerasSort.map((camera) => <ProductCard camera={camera} key={camera.id} onAddCameraInBasketButtonClick={handleAddCameraToBasketButtonClick} />)}
+                    {sortedCameras.length > 0 && sortedCameras.map((camera) => <ProductCard camera={camera} key={camera.id} onAddCameraInBasketButtonClick={handleAddCameraToBasketButtonClick} />)}
                   </div>
                 </div>
               </div>
