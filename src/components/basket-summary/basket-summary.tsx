@@ -20,13 +20,14 @@ function BasketSummary ({ onModalInfoOpen }: BasketSummaryProps): JSX.Element {
 
   const camerasInBasket = useAppSelector(getCamerasInTheBasket);
   const camerasIds = camerasInBasket.map((camera) => camera.id);
-  // const camerasPromo = useAppSelector(selectPromo);// получение промо камер
 
-  // const camerasPromoId: number[] = camerasPromo.map((item) => item.id);
+  const camerasPromo = useAppSelector(selectPromo);// получение промо камер
+  const camerasPromoId: number[] = camerasPromo.map((item) => item.id);// получение промо  массива id камер
+  const camerasInBasketWithoutPromo = camerasInBasket.filter((item : Camera) => !camerasPromoId.includes(item.id));
 
   const isBasketEmpty = camerasInBasket.length === 0;
   const camerasInBasketTotalPrice = camerasInBasket.reduce((acc: number, item: Camera) => acc + item.price, 0);
-
+  const camerasInBasketWithoutPromoTotalPrice = camerasInBasketWithoutPromo.reduce((acc: number, item: Camera) => acc + item.price, 0);
 
   const handleOrderButtonClick = () => {
     localStorage.clear();
