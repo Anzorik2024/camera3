@@ -27,14 +27,14 @@ function App (): JSX.Element {
   const { fetchAllCameraAction} = useActionCreators(catalogReducerAction);
   const camerasInTheBasket = useAppSelector(getCamerasInTheBasket);
   const dispatch = useAppDispatch();
+  const storedCart = localStorage.getItem(CART_KEY);
 
   useEffect(() => {
-    const storedCart = localStorage.getItem(CART_KEY);
-    if(camerasInTheBasket.length === 0 && storedCart) {
+    if(storedCart && camerasInTheBasket.length === 0) {
       const parsedCart = JSON.parse(storedCart) as Cameras;
       dispatch(downloadCameraToBasket(parsedCart));
     }
-  }, [camerasInTheBasket, dispatch]);
+  }, [dispatch,storedCart, camerasInTheBasket]);
 
   useEffect(() => {
     if(camerasInTheBasket.length > 0) {

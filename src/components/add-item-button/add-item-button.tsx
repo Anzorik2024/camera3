@@ -4,8 +4,6 @@ import { Camera } from '../../types/camera';
 import { useAppDispatch } from '../../hooks/use-app-dispatch';
 import { addCameraToBasket } from '../../store/order-slice/order-slice';
 import useElementFocus from '../../hooks/use-input-focus';
-import { getCamerasInTheBasket } from '../../store/selectors';
-import { useAppSelector } from '../../hooks/use-app-selector';
 
 type AddItemButtonProps = {
   camera: Camera;
