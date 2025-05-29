@@ -2,7 +2,6 @@ import { useRef } from 'react';
 
 import useOnClickOutside from '../../hooks/use-on-click-outside';
 import { useKeydownEscClose } from '../../hooks/use-keydown-esc-close';
-import useTrapFocus from '../../hooks/use-trap-focus';
 import { useAppSelector } from '../../hooks/use-app-selector';
 import { getSelectCamera } from '../../store/selectors';
 import BasketItemShort from '../basket-item-short/basket-item-short';
@@ -22,7 +21,6 @@ function BasketModal({onCloseModal, modalType, onOpenSuccessModal}: BasketModalP
 
   const modalRef = useRef(null);
   const buttonCloseRef = useRef<HTMLButtonElement>(null);
-  const titleRef = useRef<HTMLParagraphElement>(null);
 
   const handleModalCloseClick = () => {
     onCloseModal();
@@ -32,24 +30,36 @@ function BasketModal({onCloseModal, modalType, onOpenSuccessModal}: BasketModalP
 
   const getButtons = () => {
     if (modalType === ModalType.RemoveCameraFromBasket && selectedCamera) {
-      return <RemoveItemButtons cameraId={selectedCamera.id} onCloseModal={onCloseModal}/>;
+      return (
+        <RemoveItemButtons
+          cameraId={selectedCamera.id}
+          onCloseModal={onCloseModal}
+          isOpen={isOpen}
+          buttonCloseRef={buttonCloseRef}
+        />
+      );
     }
 
     if (modalType === ModalType.AddCameraInBasket && selectedCamera) {
-      return <AddItemButton camera={selectedCamera} onCloseModal={handleModalCloseClick} onOpenSuccessModal={onOpenSuccessModal}/>;
+      return (
+        <AddItemButton camera={selectedCamera}
+          onCloseModal={handleModalCloseClick}
+          onOpenSuccessModal={onOpenSuccessModal}
+          isOpen={isOpen}
+          buttonCloseRef={buttonCloseRef}
+        />
+      );
     }
   };
   const buttons = getButtons();
 
   useOnClickOutside(modalRef, handleModalCloseClick);
   useKeydownEscClose(handleModalCloseClick);
-  useTrapFocus(titleRef, buttonCloseRef,isOpen);
-
   return (
     <div className="modal__wrapper" data-testid='basket-modal'>
       <div className="modal__overlay"></div>
       <div className="modal__content" ref={modalRef}>
-        <p className="title title--h4" tabIndex={0} ref={titleRef}>{modalType}</p>
+        <p className="title title--h4">{modalType}</p>
         {selectedCamera && <BasketItemShort camera={selectedCamera} modalType={modalType}/>}
         <div className="modal__buttons" >
           {buttons}

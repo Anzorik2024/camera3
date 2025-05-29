@@ -4,14 +4,17 @@ import { useAppDispatch } from '../../hooks/use-app-dispatch';
 import { removeSameCamerasFromBasket } from '../../store/order-slice/order-slice';
 import { AppRoute } from '../../const/app-route';
 import useElementFocus from '../../hooks/use-element-focus';
+import useTrapFocus from '../../hooks/use-trap-focus';
 
 
 type RemoveItemButtonsProps = {
   cameraId: number;
   onCloseModal: () => void;
+  isOpen: boolean;
+  buttonCloseRef: React.RefObject<HTMLButtonElement>;
 }
 
-const RemoveItemButtons = ({cameraId, onCloseModal}:RemoveItemButtonsProps):JSX.Element => {
+const RemoveItemButtons = ({cameraId, onCloseModal, isOpen, buttonCloseRef}:RemoveItemButtonsProps):JSX.Element => {
   const dispatch = useAppDispatch();
   const buttonRemoveRef = useRef<HTMLButtonElement>(null);
 
@@ -20,7 +23,8 @@ const RemoveItemButtons = ({cameraId, onCloseModal}:RemoveItemButtonsProps):JSX.
     onCloseModal();
   };
 
-  useElementFocus(true,buttonRemoveRef);
+  useElementFocus(isOpen,buttonRemoveRef);
+  useTrapFocus(buttonRemoveRef, buttonCloseRef,isOpen);
 
   return (
     <>
