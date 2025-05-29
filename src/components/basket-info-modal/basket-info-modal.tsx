@@ -10,8 +10,6 @@ import { useAppSelector } from '../../hooks/use-app-selector';
 import { getOrderSendingStatus } from '../../store/selectors';
 import { WarningMessage } from '../../const/warning-message';
 import { FetchStatus } from '../../const/fetch-status';
-import useTrapFocus from '../../hooks/use-trap-focus';
-
 
 type BasketInfoModalProps = {
   onCloseModal: () => void;
@@ -43,8 +41,8 @@ function BasketInfoModal({ onCloseModal, modalType}: BasketInfoModalProps): JSX.
   const modalTitle = getModalTitle();
 
   const getButtons = () => modalType === ModalType.CameraAddedToBasket ?
-    <GoToBasketButtons onCloseModal={handleModalClose} isOpen={isOpen}/>
-    : <ReturnToCatalogButton onCloseModal={handleModalClose} isOpen={isOpen}/>;
+    <GoToBasketButtons onCloseModal={handleModalClose} isOpen={isOpen} buttonCloseRef={buttonCloseRef}/>
+    : <ReturnToCatalogButton onCloseModal={handleModalClose} isOpen={isOpen} buttonCloseRef={buttonCloseRef}/>;
 
   const modalButtons = getButtons();
 
@@ -55,13 +53,12 @@ function BasketInfoModal({ onCloseModal, modalType}: BasketInfoModalProps): JSX.
 
   useOnClickOutside(modalRef, handleModalClose);
   useKeydownEscClose(handleModalClose);
-  useTrapFocus(modalRef, buttonCloseRef,isOpen);
 
   return(
     <div className="modal is-active modal--narrow">
       <div className="modal__wrapper">
         <div className="modal__overlay"></div>
-        <div className="modal__content" tabIndex={0} ref={modalRef}>
+        <div className="modal__content" ref={modalRef}>
           <p className="title title--h4">{modalTitle}</p>
           {modalIcon}
           <div className="modal__buttons">

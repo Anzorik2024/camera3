@@ -2,12 +2,14 @@ import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AppRoute } from '../../const/app-route';
 import useElementFocus from '../../hooks/use-element-focus';
+import useTrapFocus from '../../hooks/use-trap-focus';
 
 type ReturnToCatalogButtonProps = {
   onCloseModal: () => void;
   isOpen: boolean;
+   buttonCloseRef: React.RefObject<HTMLButtonElement>;
 }
-const ReturnToCatalogButton = ({ onCloseModal, isOpen }:ReturnToCatalogButtonProps):JSX.Element => {
+const ReturnToCatalogButton = ({ onCloseModal, isOpen,buttonCloseRef}:ReturnToCatalogButtonProps):JSX.Element => {
   const navigate = useNavigate();
   const buttonReturnRef = useRef<HTMLButtonElement>(null);
 
@@ -17,6 +19,7 @@ const ReturnToCatalogButton = ({ onCloseModal, isOpen }:ReturnToCatalogButtonPro
     onCloseModal();
   };
 
+  useTrapFocus(buttonReturnRef, buttonCloseRef,isOpen);
   useElementFocus(isOpen,buttonReturnRef);
 
   return (
