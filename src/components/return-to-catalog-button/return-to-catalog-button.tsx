@@ -5,8 +5,9 @@ import useElementFocus from '../../hooks/use-element-focus';
 
 type ReturnToCatalogButtonProps = {
   onCloseModal: () => void;
+  isOpen: boolean;
 }
-const ReturnToCatalogButton = ({ onCloseModal}:ReturnToCatalogButtonProps):JSX.Element => {
+const ReturnToCatalogButton = ({ onCloseModal, isOpen }:ReturnToCatalogButtonProps):JSX.Element => {
   const navigate = useNavigate();
   const buttonReturnRef = useRef<HTMLButtonElement>(null);
 
@@ -16,7 +17,7 @@ const ReturnToCatalogButton = ({ onCloseModal}:ReturnToCatalogButtonProps):JSX.E
     onCloseModal();
   };
 
-  useElementFocus(true,buttonReturnRef);
+  useElementFocus(isOpen,buttonReturnRef);
 
   return (
     <button
