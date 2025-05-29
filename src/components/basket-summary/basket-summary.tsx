@@ -24,15 +24,15 @@ function BasketSummary ({ onModalInfoOpen }: BasketSummaryProps): JSX.Element {
 
   const camerasPromo = useAppSelector(selectPromo);
   const camerasPromoIds: number[] = camerasPromo.map((item) => item.id);
-  const camerasInBasketWithOutPromo = camerasInBasket.filter((item : Camera) => !camerasPromoIds.includes(item.id));
+  const camerasInBasketWithoutPromo = camerasInBasket.filter((item : Camera) => !camerasPromoIds.includes(item.id));
 
   const isBasketEmpty = camerasInBasket.length === 0;
   const camerasInBasketTotalPrice = camerasInBasket.reduce((acc: number, item: Camera) => acc + item.price, 0);
-  const camerasInBasketWithOutPromoTotalPrice = camerasInBasketWithOutPromo.reduce((acc: number, item: Camera) => acc + item.price, 0);
+  const camerasWithoutPromoTotalPrice = camerasInBasketWithoutPromo.reduce((acc: number, item: Camera) => acc + item.price, 0);
 
-  const camerasWithOutPromoIncludingDiscoutPrice = calculateFinalDiscountPrice(camerasInBasketWithOutPromo.length, camerasInBasketWithOutPromoTotalPrice);
+  const camerasBaseDiscoutPrice = calculateFinalDiscountPrice(camerasInBasketWithoutPromo.length, camerasWithoutPromoTotalPrice);
 
-  const allDiscountPice = camerasInBasketWithOutPromoTotalPrice - camerasWithOutPromoIncludingDiscoutPrice;
+  const allDiscountPrice = camerasWithoutPromoTotalPrice - camerasBaseDiscoutPrice;
 
   const handleOrderButtonClick = () => {
     localStorage.clear();
@@ -51,7 +51,7 @@ function BasketSummary ({ onModalInfoOpen }: BasketSummaryProps): JSX.Element {
       <div className="basket__promo">
       </div>
       <BasketOrder
-        discountPrice={allDiscountPice}
+        discountPrice={allDiscountPrice}
         totalPrice={camerasInBasketTotalPrice}
         isBasketEmpty={isBasketEmpty}
         onOrderButtonClick={handleOrderButtonClick}
