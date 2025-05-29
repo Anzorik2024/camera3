@@ -42,7 +42,10 @@ function BasketInfoModal({ onCloseModal, modalType}: BasketInfoModalProps): JSX.
 
   const modalTitle = getModalTitle();
 
-  const getButtons = () => modalType === ModalType.CameraAddedToBasket ? <GoToBasketButtons onCloseModal={handleModalClose}/> : <ReturnToCatalogButton onCloseModal={handleModalClose}/>;
+  const getButtons = () => modalType === ModalType.CameraAddedToBasket ?
+    <GoToBasketButtons onCloseModal={handleModalClose} isOpen={isOpen}/>
+    : <ReturnToCatalogButton onCloseModal={handleModalClose} isOpen={isOpen}/>;
+
   const modalButtons = getButtons();
 
   const getIcon = () => modalType === ModalType.CameraAddedToBasket ? <IconCheckMark/> : <IconReviewOrOrder/>;
