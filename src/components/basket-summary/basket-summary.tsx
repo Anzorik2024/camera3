@@ -4,7 +4,7 @@ import BasketOrder from '../basket-order/basket-order';
 import BasketCoupon from '../basket-coupon/basket-coupon';
 import { useAppDispatch } from '../../hooks/use-app-dispatch';
 import { useAppSelector } from '../../hooks/use-app-selector';
-import { getCamerasInTheBasket, getCoupon, selectPromo, getDiscountCoupon } from '../../store/selectors';
+import { getCamerasInTheBasket, getCoupon, selectPromo, getDiscountCoupon, getCouponSendingStatus } from '../../store/selectors';
 import { sendOrderAction, sendCouponAction } from '../../store/thunks/product-process/product-process';
 import { toast } from 'react-toastify';
 import { WarningMessage } from '../../const/warning-message';
@@ -12,6 +12,7 @@ import { CART_KEY } from '../../const/const';
 import { calculateBaseDiscountPrice } from '../../utils/calculate-base-discount-price';
 import { CouponValidityStatus } from '../../const/coupon-validity-status';
 import { addCoupon } from '../../store/order-slice/order-slice';
+import { FetchStatus } from '../../const/fetch-status';
 
 import { Camera } from '../../types/camera';
 
@@ -25,6 +26,7 @@ function BasketSummary ({ onModalInfoOpen }: BasketSummaryProps): JSX.Element {
   const dispatch = useAppDispatch();
   const initialCoupon = useAppSelector(getCoupon);
   const discountCoupon = useAppSelector(getDiscountCoupon);
+  const couponSendingStatus = useAppSelector(getCouponSendingStatus);
 
   const camerasInBasket = useAppSelector(getCamerasInTheBasket);
   const camerasIds = camerasInBasket.map((camera) => camera.id);
@@ -73,9 +75,17 @@ function BasketSummary ({ onModalInfoOpen }: BasketSummaryProps): JSX.Element {
   };
 
   useEffect(() => {
-    console.log(discountCoupon);
-  }
-  ,[discountCoupon]);
+    if (couponSendingStatus === FetchStatus.Success) {
+      if (discountCoupon === null) {
+        setCouponValidityStatus(CouponValidityStatus.NotValid);
+      } else {
+        setCouponValidityStatus(CouponValidityStatus.Valid);
+      }
+    }
+    if (couponSendingStatus === FetchStatus.Error) {
+      setCouponValidityStatus(CouponValidityStatus.Error);
+    }
+  },[discountCoupon, couponSendingStatus]);
 
   return(
     <div className="basket__summary">
@@ -84,6 +94,7 @@ function BasketSummary ({ onModalInfoOpen }: BasketSummaryProps): JSX.Element {
         onCouponFormSubmit={handlePromoFormSubmit}
         onCouponInputChange={handleCouponInputChange}
         coupon={coupon}
+        couponValidityStatus={couponValidityStatus}
       />
       <BasketOrder
         discountPrice={allDiscountTotalPrice}

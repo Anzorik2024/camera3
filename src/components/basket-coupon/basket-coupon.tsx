@@ -1,18 +1,38 @@
 import {FormEvent, ChangeEvent } from 'react';
 
+import { CouponValidityStatus } from '../../const/coupon-validity-status';
+
 type BasketCouponProps = {
   isBasketEmpty: boolean;
   onCouponFormSubmit: (event: FormEvent) => void;
   onCouponInputChange: (value: string) => void;
   coupon: string;
+  couponValidityStatus: CouponValidityStatus;
 }
 
 
-function BasketCoupon({isBasketEmpty, onCouponFormSubmit, onCouponInputChange, coupon} : BasketCouponProps):JSX.Element {
+function BasketCoupon({isBasketEmpty, onCouponFormSubmit, onCouponInputChange, coupon, couponValidityStatus} : BasketCouponProps):JSX.Element {
 
   const handleCouponInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     onCouponInputChange(event.target.value);
   };
+
+  const isCouponNotExist = couponValidityStatus === CouponValidityStatus.NotValid;
+  const isCouponValid = couponValidityStatus === CouponValidityStatus.Valid;
+  const isCouponSendingWithError = couponValidityStatus === CouponValidityStatus.Error;
+
+  const getInputValidityClass = () => {
+    if (isCouponNotExist || isCouponSendingWithError) {
+      return 'is-invalid';
+    }
+    if (isCouponValid) {
+      return 'is-valid';
+    }
+
+    return '';
+  };
+
+  const inputValidityClass = getInputValidityClass();
 
 
   return (
