@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, RefObject } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 
 import { AppRoute } from '../../const/app-route';
@@ -9,7 +9,7 @@ import useTrapFocus from '../../hooks/use-trap-focus';
 type GoToBasketButtonsProps = {
   onCloseModal: () => void;
   isOpen: boolean;
-  buttonCloseRef: React.RefObject<HTMLButtonElement>;
+  buttonCloseRef: RefObject<HTMLButtonElement>;
 }
 
 const GoToBasketButtons = ({ onCloseModal, isOpen, buttonCloseRef}: GoToBasketButtonsProps):JSX.Element => {
