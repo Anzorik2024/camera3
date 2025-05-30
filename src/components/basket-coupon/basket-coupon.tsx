@@ -1,4 +1,9 @@
-function BasketCoupon():JSX.Element {
+type BasketCouponProps = {
+  isBasketEmpty: boolean;
+}
+
+
+function BasketCoupon({isBasketEmpty} : BasketCouponProps):JSX.Element {
   return (
     <div className="basket__promo">
       <p className="title title&#45;&#45;h4">Если у вас есть промокод на скидку, примените его в этом поле</p>
@@ -11,7 +16,7 @@ function BasketCoupon():JSX.Element {
             <p className="custom-input__error">Промокод неверный</p>
             <p className="custom-input__success">Промокод принят!</p>
           </div>
-          <button className="btn" type="submit">Применить
+          <button className="btn" type="submit" disabled={isBasketEmpty}>Применить
           </button>
         </form>
       </div>

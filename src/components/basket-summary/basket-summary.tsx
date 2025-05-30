@@ -49,7 +49,9 @@ function BasketSummary ({ onModalInfoOpen }: BasketSummaryProps): JSX.Element {
 
   return(
     <div className="basket__summary">
-      <BasketCoupon/>
+      <BasketCoupon
+        isBasketEmpty={isBasketEmpty}
+      />
       <BasketOrder
         discountPrice={allDiscountTotalPrice}
         totalPrice={camerasInBasketTotalPrice}
