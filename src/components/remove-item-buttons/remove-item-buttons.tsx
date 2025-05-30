@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, RefObject } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks/use-app-dispatch';
 import { removeSameCamerasFromBasket } from '../../store/order-slice/order-slice';
@@ -11,7 +11,7 @@ type RemoveItemButtonsProps = {
   cameraId: number;
   onCloseModal: () => void;
   isOpen: boolean;
-  buttonCloseRef: React.RefObject<HTMLButtonElement>;
+  buttonCloseRef: RefObject<HTMLButtonElement>;
 }
 
 const RemoveItemButtons = ({cameraId, onCloseModal, isOpen, buttonCloseRef}:RemoveItemButtonsProps):JSX.Element => {

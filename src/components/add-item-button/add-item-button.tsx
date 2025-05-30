@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, RefObject } from 'react';
 
 import { Camera } from '../../types/camera';
 import { useAppDispatch } from '../../hooks/use-app-dispatch';
@@ -11,7 +11,7 @@ type AddItemButtonProps = {
   onCloseModal: () => void;
   onOpenSuccessModal: () => void;
   isOpen: boolean;
-  buttonCloseRef: React.RefObject<HTMLButtonElement>;
+  buttonCloseRef: RefObject<HTMLButtonElement>;
 }
 const AddItemButton = ({camera, onCloseModal, onOpenSuccessModal, isOpen, buttonCloseRef}:AddItemButtonProps):JSX.Element => {
   const dispatch = useAppDispatch();
