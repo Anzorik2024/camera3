@@ -1,4 +1,5 @@
 import BasketOrder from '../basket-order/basket-order';
+import BasketCoupon from '../basket-coupon/basket-coupon';
 import { useAppDispatch } from '../../hooks/use-app-dispatch';
 import { useAppSelector } from '../../hooks/use-app-selector';
 import { getCamerasInTheBasket } from '../../store/selectors';
@@ -48,8 +49,7 @@ function BasketSummary ({ onModalInfoOpen }: BasketSummaryProps): JSX.Element {
 
   return(
     <div className="basket__summary">
-      <div className="basket__promo">
-      </div>
+      <BasketCoupon/>
       <BasketOrder
         discountPrice={allDiscountTotalPrice}
         totalPrice={camerasInBasketTotalPrice}
