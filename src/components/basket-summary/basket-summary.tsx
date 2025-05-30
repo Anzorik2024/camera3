@@ -7,7 +7,7 @@ import { sendOrderAction } from '../../store/thunks/product-process/product-proc
 import { toast } from 'react-toastify';
 import { WarningMessage } from '../../const/warning-message';
 import { CART_KEY } from '../../const/const';
-import { calculateFinalDiscountPrice } from '../../utils/calculate-final-discount-price';
+import { calculateBaseDiscountPrice } from '../../utils/calculate-base-discount-price';
 
 import { Camera } from '../../types/camera';
 
@@ -30,9 +30,9 @@ function BasketSummary ({ onModalInfoOpen }: BasketSummaryProps): JSX.Element {
   const camerasInBasketTotalPrice = camerasInBasket.reduce((acc: number, item: Camera) => acc + item.price, 0);
   const camerasWithoutPromoTotalPrice = camerasInBasketWithoutPromo.reduce((acc: number, item: Camera) => acc + item.price, 0);
 
-  const camerasBaseDiscoutPrice = calculateFinalDiscountPrice(camerasInBasketWithoutPromo.length, camerasWithoutPromoTotalPrice);
+  const camerasBaseDiscoutTotalPrice = calculateBaseDiscountPrice(camerasInBasketWithoutPromo.length, camerasWithoutPromoTotalPrice);
 
-  const allDiscountPrice = camerasWithoutPromoTotalPrice - camerasBaseDiscoutPrice;
+  const allDiscountTotalPrice = camerasWithoutPromoTotalPrice - camerasBaseDiscoutTotalPrice;
 
   const handleOrderButtonClick = () => {
     localStorage.clear();
@@ -51,7 +51,7 @@ function BasketSummary ({ onModalInfoOpen }: BasketSummaryProps): JSX.Element {
       <div className="basket__promo">
       </div>
       <BasketOrder
-        discountPrice={allDiscountPrice}
+        discountPrice={allDiscountTotalPrice}
         totalPrice={camerasInBasketTotalPrice}
         isBasketEmpty={isBasketEmpty}
         onOrderButtonClick={handleOrderButtonClick}

@@ -1,6 +1,6 @@
 import { calculateDiscount } from './calculate-discount';
 
-export const calculateFinalDiscountPrice = (quantity:number, totalAmount:number) => {
+export const calculateBaseDiscountPrice = (quantity:number, totalAmount:number) => {
   /**
    * Рассчитываем итоговую  скидку.
    *
