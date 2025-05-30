@@ -50,8 +50,10 @@ function BasketSummary ({ onModalInfoOpen }: BasketSummaryProps): JSX.Element {
   const [coupon, setCoupon] = useState<string>(initialCoupon);
 
   const handleOrderButtonClick = () => {
+    const validCoupon = couponValidityStatus === CouponValidityStatus.Valid ? coupon.split(' ').join('') : null;
+
     localStorage.clear();
-    dispatch(sendOrderAction({coupon: null, camerasIds: camerasIds })).unwrap().then(
+    dispatch(sendOrderAction({coupon:validCoupon, camerasIds: camerasIds })).unwrap().then(
       () => {
         onModalInfoOpen();
       }).catch(() => {
