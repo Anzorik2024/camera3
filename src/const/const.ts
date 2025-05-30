@@ -11,3 +11,5 @@ export enum ProductAmount {
 }
 
 export const CART_KEY = 'cart';
+
+export const NOT_FOUND_ERROR_STATUS = 400;

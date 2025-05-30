@@ -1,10 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { AxiosInstance } from 'axios';
+import { AxiosInstance, AxiosError } from 'axios';
 
 import { ApiRoute } from '../../../const/api-route';
 import { Camera} from '../../../types/camera';
 import { Reviews } from '../../../types/camera';
-import { Order } from '../../../types/order';
+import { Order, Coupon, CouponResponse } from '../../../types/order';
+import { NOT_FOUND_ERROR_STATUS } from '../../../const/const';
+
 
 export const fetchCameraByIdAction = createAsyncThunk<
 Camera,
@@ -46,4 +48,24 @@ Order,
   }
 );
 
+export const sendCouponAction = createAsyncThunk<
+CouponResponse,
+Coupon,
+{
+ extra: AxiosInstance;
+}
+>('order/sendCoupon',
+  async (coupon, {extra: api}) => {
+    try {
+      const response = await api.post<CouponResponse>(ApiRoute.Discount, coupon);
+      return response.data;
+    } catch (error) {
+      const status = (error as AxiosError)?.response?.status;
 
+      if (status === NOT_FOUND_ERROR_STATUS) {
+        return null;
+      }
+      throw new Error();
+    }
+  }
+);

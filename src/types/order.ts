@@ -6,3 +6,6 @@ export type Coupon = {
 export type Order = Coupon & {
   camerasIds: number[];
 };
+
+
+export type CouponResponse = null | number;

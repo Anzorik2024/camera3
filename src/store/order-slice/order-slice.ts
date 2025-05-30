@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { sendOrderAction } from '../thunks/product-process/product-process';
+import { sendOrderAction, sendCouponAction } from '../thunks/product-process/product-process';
 
 import { Camera, Cameras, SeveralCameras } from '../../types/camera';
+import { CouponResponse } from '../../types/order';
 import { RequestStatus } from '../../const/request-status';
 import { FetchStatus } from '../../const/fetch-status';
 
@@ -12,6 +13,8 @@ type InitialState = {
   status: RequestStatus;
   orderSendingStatus: FetchStatus;
   coupon: string;
+  couponSendingStatus: FetchStatus;
+  discountCoupon: CouponResponse;
 };
 
 const initialState : InitialState = {
@@ -20,6 +23,8 @@ const initialState : InitialState = {
   status: RequestStatus.Idle,
   orderSendingStatus: FetchStatus.Default,
   coupon: '',
+  couponSendingStatus: FetchStatus.Default,
+  discountCoupon: null
 };
 
 const orderSlice = createSlice({
@@ -71,6 +76,16 @@ const orderSlice = createSlice({
     });
     builder.addCase(sendOrderAction.rejected, (state) => {
       state.orderSendingStatus = FetchStatus.Error;
+    });
+    builder.addCase(sendCouponAction.fulfilled, (state, action) => {
+      state.discountCoupon = action.payload;
+      state.couponSendingStatus = FetchStatus.Success;
+    });
+    builder.addCase(sendCouponAction.pending, (state) => {
+      state.couponSendingStatus = FetchStatus.Loading;
+    });
+    builder.addCase(sendCouponAction.rejected, (state) => {
+      state.couponSendingStatus = FetchStatus.Error;
     });
   }
 
