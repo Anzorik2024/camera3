@@ -1,6 +1,7 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { State } from '../types/state/state';
 import { Reviews, ReviewsAdapt, Cameras } from '../types/camera';
+import { CouponResponse } from '../types/order';
 
 import { adaptReview } from '../utils/adapt-review';
 import { sortReviewByTime } from '../utils/sort-compare';
@@ -38,11 +39,12 @@ const getCurrentFiltersByLevels = (state: State) => state.filter.currentFilterLe
 const getCamerasInTheBasket = (state: State): Cameras => state.order.camerasInBasket;
 const getOrderSendingStatus = (state: State): FetchStatus => state.order.orderSendingStatus;
 const getCoupon = (state: State): string => state.order.coupon;
+const getDiscountCoupon = (state: State): CouponResponse => state.order.discountCoupon;
 
 
 export {
   selectCameras,selectIsLoading,selectProductStatus,selectProductCamera,selectCameraReviews,selectSortedReviews,
   getSelectCamera,selectOrderStatus,getCurrentSortType,getCurrentSortOrder,getCamerasMinPrice,
   getCamerasMaxPrice,getUserEnteredBottomPrice,getUserEnteredTopPrice,getCurrentFilterByCategory,getCurrentFiltersByTypes,
-  getCurrentFiltersByLevels,getCamerasInTheBasket,selectPromo, getOrderSendingStatus, getCoupon
+  getCurrentFiltersByLevels,getCamerasInTheBasket,selectPromo, getOrderSendingStatus, getCoupon, getDiscountCoupon
 };

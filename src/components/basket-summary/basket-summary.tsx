@@ -1,10 +1,10 @@
-import {FormEvent, useState } from 'react';
+import {FormEvent, useState, useEffect } from 'react';
 
 import BasketOrder from '../basket-order/basket-order';
 import BasketCoupon from '../basket-coupon/basket-coupon';
 import { useAppDispatch } from '../../hooks/use-app-dispatch';
 import { useAppSelector } from '../../hooks/use-app-selector';
-import { getCamerasInTheBasket, getCoupon, selectPromo } from '../../store/selectors';
+import { getCamerasInTheBasket, getCoupon, selectPromo, getDiscountCoupon } from '../../store/selectors';
 import { sendOrderAction, sendCouponAction } from '../../store/thunks/product-process/product-process';
 import { toast } from 'react-toastify';
 import { WarningMessage } from '../../const/warning-message';
@@ -24,6 +24,7 @@ function BasketSummary ({ onModalInfoOpen }: BasketSummaryProps): JSX.Element {
 
   const dispatch = useAppDispatch();
   const initialCoupon = useAppSelector(getCoupon);
+  const discountCoupon = useAppSelector(getDiscountCoupon);
 
   const camerasInBasket = useAppSelector(getCamerasInTheBasket);
   const camerasIds = camerasInBasket.map((camera) => camera.id);
@@ -70,6 +71,11 @@ function BasketSummary ({ onModalInfoOpen }: BasketSummaryProps): JSX.Element {
     dispatch(sendCouponAction({coupon: validCoupon}));
     dispatch(addCoupon(coupon));
   };
+
+  useEffect(() => {
+    console.log(discountCoupon);
+  }
+  ,[discountCoupon]);
 
   return(
     <div className="basket__summary">
