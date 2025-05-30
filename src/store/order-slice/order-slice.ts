@@ -11,13 +11,15 @@ type InitialState = {
   selectedCamera: Camera | null;
   status: RequestStatus;
   orderSendingStatus: FetchStatus;
+  coupon: string;
 };
 
 const initialState : InitialState = {
   camerasInBasket: [],
   selectedCamera: null,
   status: RequestStatus.Idle,
-  orderSendingStatus: FetchStatus.Default
+  orderSendingStatus: FetchStatus.Default,
+  coupon: '',
 };
 
 const orderSlice = createSlice({
@@ -54,7 +56,10 @@ const orderSlice = createSlice({
     resetOrder: (state) => {
       state.selectedCamera = null;
       state.status = RequestStatus.Idle;
-    }
+    },
+    addCoupon: (state, action: PayloadAction<string>) => {
+      state.coupon = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(sendOrderAction.pending, (state) => {
@@ -73,11 +78,12 @@ const orderSlice = createSlice({
 
 
 const orderReducer = orderSlice.reducer;
-const {downloadCameraToBasket, addSameCamerasToBasket, selectCamera, resetOrder, addCameraToBasket, removeSameCamerasFromBasket, removeCameraFromBasket} = orderSlice.actions;
+const {downloadCameraToBasket, addSameCamerasToBasket, selectCamera, resetOrder, addCameraToBasket,
+  removeSameCamerasFromBasket, removeCameraFromBasket, addCoupon } = orderSlice.actions;
 
 const orderSliceAction = {
   sendOrderAction
 };
 
 export {downloadCameraToBasket,addSameCamerasToBasket, removeCameraFromBasket, orderReducer,
-  selectCamera, orderSliceAction, resetOrder, initialState, addCameraToBasket, removeSameCamerasFromBasket};
+  selectCamera, orderSliceAction, resetOrder, initialState, addCameraToBasket, removeSameCamerasFromBasket, addCoupon};
