@@ -86,6 +86,7 @@ function BasketSummary ({ onModalInfoOpen }: BasketSummaryProps): JSX.Element {
     }
     if (couponSendingStatus === FetchStatus.Error) {
       setCouponValidityStatus(CouponValidityStatus.Error);
+      toast.error(WarningMessage.CouponSendError);
     }
   },[discountCoupon, couponSendingStatus]);
 
