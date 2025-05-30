@@ -1,14 +1,17 @@
+import {FormEvent } from 'react';
+
 type BasketCouponProps = {
   isBasketEmpty: boolean;
+  onCouponFormSubmit: (event: FormEvent) => void;
 }
 
 
-function BasketCoupon({isBasketEmpty} : BasketCouponProps):JSX.Element {
+function BasketCoupon({isBasketEmpty, onCouponFormSubmit} : BasketCouponProps):JSX.Element {
   return (
     <div className="basket__promo">
       <p className="title title&#45;&#45;h4">Если у вас есть промокод на скидку, примените его в этом поле</p>
       <div className="basket-form">
-        <form action="#">
+        <form action="#" onSubmit={onCouponFormSubmit}>
           <div className="custom-input">
             <label><span className="custom-input__label">Промокод</span>
               <input type="text" name="promo" placeholder="Введите промокод"/>

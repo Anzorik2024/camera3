@@ -1,3 +1,5 @@
+import {FormEvent } from 'react';
+
 import BasketOrder from '../basket-order/basket-order';
 import BasketCoupon from '../basket-coupon/basket-coupon';
 import { useAppDispatch } from '../../hooks/use-app-dispatch';
@@ -16,6 +18,7 @@ import { Camera } from '../../types/camera';
 type BasketSummaryProps = {
   onModalInfoOpen: () => void;
 };
+
 function BasketSummary ({ onModalInfoOpen }: BasketSummaryProps): JSX.Element {
 
   const dispatch = useAppDispatch();
@@ -47,10 +50,19 @@ function BasketSummary ({ onModalInfoOpen }: BasketSummaryProps): JSX.Element {
     });
   };
 
+  const handlePromoFormSubmit = (event: FormEvent) => {
+    event.preventDefault();
+
+    // const validCoupon = coupon.split(' ').join('');
+    // dispatch(sendCouponAction({coupon: validCoupon}));
+    // dispatch(addCoupon(coupon));
+  };
+
   return(
     <div className="basket__summary">
       <BasketCoupon
         isBasketEmpty={isBasketEmpty}
+        onCouponFormSubmit={handlePromoFormSubmit}
       />
       <BasketOrder
         discountPrice={allDiscountTotalPrice}
