@@ -97,7 +97,8 @@ const {downloadCameraToBasket, addSameCamerasToBasket, selectCamera, resetOrder,
   removeSameCamerasFromBasket, removeCameraFromBasket, addCoupon } = orderSlice.actions;
 
 const orderSliceAction = {
-  sendOrderAction
+  sendOrderAction,
+  sendCouponAction
 };
 
 export {downloadCameraToBasket,addSameCamerasToBasket, removeCameraFromBasket, orderReducer,

@@ -5,12 +5,13 @@ import BasketCoupon from '../basket-coupon/basket-coupon';
 import { useAppDispatch } from '../../hooks/use-app-dispatch';
 import { useAppSelector } from '../../hooks/use-app-selector';
 import { getCamerasInTheBasket, getCoupon, selectPromo } from '../../store/selectors';
-import { sendOrderAction } from '../../store/thunks/product-process/product-process';
+import { sendOrderAction, sendCouponAction } from '../../store/thunks/product-process/product-process';
 import { toast } from 'react-toastify';
 import { WarningMessage } from '../../const/warning-message';
 import { CART_KEY } from '../../const/const';
 import { calculateBaseDiscountPrice } from '../../utils/calculate-base-discount-price';
 import { CouponValidityStatus } from '../../const/coupon-validity-status';
+import { addCoupon } from '../../store/order-slice/order-slice';
 
 import { Camera } from '../../types/camera';
 
@@ -65,9 +66,9 @@ function BasketSummary ({ onModalInfoOpen }: BasketSummaryProps): JSX.Element {
   const handlePromoFormSubmit = (event: FormEvent) => {
     event.preventDefault();
 
-    // const validCoupon = coupon.split(' ').join('');
-    // dispatch(sendCouponAction({coupon: validCoupon}));
-    // dispatch(addCoupon(coupon));
+    const validCoupon = coupon.split(' ').join('');
+    dispatch(sendCouponAction({coupon: validCoupon}));
+    dispatch(addCoupon(coupon));
   };
 
   return(
