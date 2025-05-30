@@ -40,7 +40,7 @@ function BasketCoupon({isBasketEmpty, onCouponFormSubmit, onCouponInputChange, c
       <p className="title title&#45;&#45;h4">Если у вас есть промокод на скидку, примените его в этом поле</p>
       <div className="basket-form">
         <form action="#" onSubmit={onCouponFormSubmit}>
-          <div className="custom-input">
+          <div className={`custom-input ${inputValidityClass}`}>
             <label>
               <span className="custom-input__label">Промокод</span>
               <input

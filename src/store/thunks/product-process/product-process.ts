@@ -6,6 +6,8 @@ import { Camera} from '../../../types/camera';
 import { Reviews } from '../../../types/camera';
 import { Order, Coupon, CouponResponse } from '../../../types/order';
 import { NOT_FOUND_ERROR_STATUS } from '../../../const/const';
+import { toast } from 'react-toastify';
+import { WarningMessage } from '../../../const/warning-message';
 
 
 export const fetchCameraByIdAction = createAsyncThunk<
@@ -63,6 +65,7 @@ Coupon,
       const status = (error as AxiosError)?.response?.status;
 
       if (status === NOT_FOUND_ERROR_STATUS) {
+        toast.error(WarningMessage.CouponError);
         return null;
       }
       throw new Error();
