@@ -18,7 +18,7 @@ import BasketInfoModal from '../../components/basket-info-modal/basket-info-moda
 import { ModalType } from '../../const/modal-type';
 import BasketSummary from '../../components/basket-summary/basket-summary';
 import useDisableBackground from '../../hooks/use-disable-background';
-import { getOrderSendingStatus } from '../../store/selectors';
+import { getOrderSendingStatus, getCouponSendingStatus } from '../../store/selectors';
 import Spiner from '../../components/spiner/spiner';
 import { FetchStatus } from '../../const/fetch-status';
 
@@ -27,6 +27,7 @@ function BasketPage() : JSX.Element {
 
   const cameras = useAppSelector(getCamerasInTheBasket);
   const isOrderSendingStatus = useAppSelector(getOrderSendingStatus);
+  const isCouponSendingStatus = useAppSelector(getCouponSendingStatus);
 
   const uniqueCamerasInTheBasket = cameras.reduce(
     (acc: Cameras, item: Camera) =>
@@ -66,7 +67,7 @@ function BasketPage() : JSX.Element {
   useDisableBackground(isModalRemoveCameraFromBasketOpen);
   useDisableBackground(isInfoModalOpen);
 
-  if (isOrderSendingStatus === FetchStatus.Loading) {
+  if (isOrderSendingStatus === FetchStatus.Loading || isCouponSendingStatus === FetchStatus.Loading) {
     return (
       <Spiner />
     );
