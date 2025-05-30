@@ -38,10 +38,12 @@ function BasketSummary ({ onModalInfoOpen }: BasketSummaryProps): JSX.Element {
   const isBasketEmpty = camerasInBasket.length === 0;
   const camerasInBasketTotalPrice = camerasInBasket.reduce((acc: number, item: Camera) => acc + item.price, 0);
   const camerasWithoutPromoTotalPrice = camerasInBasketWithoutPromo.reduce((acc: number, item: Camera) => acc + item.price, 0);
+  const discountCouponPrice = discountCoupon ? Math.ceil(camerasInBasketTotalPrice / 100 * discountCoupon) : 0;
 
   const camerasBaseDiscoutTotalPrice = calculateBaseDiscountPrice(camerasInBasketWithoutPromo.length, camerasWithoutPromoTotalPrice);
 
-  const allDiscountTotalPrice = camerasWithoutPromoTotalPrice - camerasBaseDiscoutTotalPrice;
+  const allDiscountTotalPrice = discountCoupon ? (camerasWithoutPromoTotalPrice - camerasBaseDiscoutTotalPrice) + (discountCouponPrice)
+    : camerasWithoutPromoTotalPrice - camerasBaseDiscoutTotalPrice;
 
 
   const [couponValidityStatus, setCouponValidityStatus] = useState<CouponValidityStatus>(CouponValidityStatus.Default);
