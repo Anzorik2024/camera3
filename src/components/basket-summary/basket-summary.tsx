@@ -1,4 +1,4 @@
-import {FormEvent } from 'react';
+import {FormEvent, useState } from 'react';
 
 import BasketOrder from '../basket-order/basket-order';
 import BasketCoupon from '../basket-coupon/basket-coupon';
@@ -11,6 +11,7 @@ import { toast } from 'react-toastify';
 import { WarningMessage } from '../../const/warning-message';
 import { CART_KEY } from '../../const/const';
 import { calculateBaseDiscountPrice } from '../../utils/calculate-base-discount-price';
+import { CouponValidityStatus } from '../../const/coupon-validity-status';
 
 import { Camera } from '../../types/camera';
 
@@ -37,6 +38,9 @@ function BasketSummary ({ onModalInfoOpen }: BasketSummaryProps): JSX.Element {
   const camerasBaseDiscoutTotalPrice = calculateBaseDiscountPrice(camerasInBasketWithoutPromo.length, camerasWithoutPromoTotalPrice);
 
   const allDiscountTotalPrice = camerasWithoutPromoTotalPrice - camerasBaseDiscoutTotalPrice;
+
+
+  const [couponValidityStatus, setCouponValidityStatus] = useState<CouponValidityStatus>(CouponValidityStatus.Default);
 
   const handleOrderButtonClick = () => {
     localStorage.clear();
