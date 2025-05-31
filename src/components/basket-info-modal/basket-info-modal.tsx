@@ -4,7 +4,7 @@ import useOnClickOutside from '../../hooks/use-on-click-outside';
 import { useKeydownEscClose } from '../../hooks/use-keydown-esc-close';
 import GoToBasketButtons from '../go-to-basket-buttons/go-to-basket-buttons';
 import IconCheckMark from '../icon-check-mark/icon-check-mark';
-import IconReviewOrOrder from '../icon-review-or-order/icon-review-or-order';
+import IconOrder from '../icon-review-or-order/icon-review-or-order';
 import ReturnToCatalogButton from '../return-to-catalog-button/return-to-catalog-button';
 import { useAppSelector } from '../../hooks/use-app-selector';
 import { getOrderSendingStatus } from '../../store/selectors';
@@ -46,7 +46,7 @@ function BasketInfoModal({ onCloseModal, modalType}: BasketInfoModalProps): JSX.
 
   const modalButtons = getButtons();
 
-  const getIcon = () => modalType === ModalType.CameraAddedToBasket ? <IconCheckMark/> : <IconReviewOrOrder/>;
+  const getIcon = () => modalType === ModalType.CameraAddedToBasket ? <IconCheckMark/> : <IconOrder/>;
   const modalIcon = getIcon();
 
   const modalRef = useRef(null);
