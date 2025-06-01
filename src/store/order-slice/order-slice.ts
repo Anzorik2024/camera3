@@ -96,10 +96,5 @@ const orderReducer = orderSlice.reducer;
 const {downloadCameraToBasket, addSameCamerasToBasket, selectCamera, resetOrder, addCameraToBasket,
   removeSameCamerasFromBasket, removeCameraFromBasket, addCoupon } = orderSlice.actions;
 
-const orderSliceAction = {
-  sendOrderAction,
-  sendCouponAction
-};
-
 export {downloadCameraToBasket,addSameCamerasToBasket, removeCameraFromBasket, orderReducer,
-  selectCamera, orderSliceAction, resetOrder, initialState, addCameraToBasket, removeSameCamerasFromBasket, addCoupon};
+  selectCamera, resetOrder, initialState, addCameraToBasket, removeSameCamerasFromBasket, addCoupon};
