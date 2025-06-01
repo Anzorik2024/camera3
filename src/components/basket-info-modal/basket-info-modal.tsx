@@ -4,7 +4,7 @@ import useOnClickOutside from '../../hooks/use-on-click-outside';
 import { useKeydownEscClose } from '../../hooks/use-keydown-esc-close';
 import GoToBasketButtons from '../go-to-basket-buttons/go-to-basket-buttons';
 import IconCheckMark from '../icon-check-mark/icon-check-mark';
-import IconOrder from '../icon-review-or-order/icon-review-or-order';
+import IconOrder from '../icon-order/icon-order';
 import ReturnToCatalogButton from '../return-to-catalog-button/return-to-catalog-button';
 import { useAppSelector } from '../../hooks/use-app-selector';
 import { getOrderSendingStatus } from '../../store/selectors';
