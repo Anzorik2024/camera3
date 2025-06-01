@@ -1,12 +1,8 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { State } from '../types/state/state';
-import { Reviews, ReviewsAdapt, Cameras } from '../types/camera';
-import { CouponResponse } from '../types/order';
-
+import { Reviews, ReviewsAdapt} from '../types/camera';
 import { adaptReview } from '../utils/adapt-review';
 import { sortReviewByTime } from '../utils/sort-compare';
-import { FetchStatus } from '../const/fetch-status';
-
 
 const selectCameras = (state: State) => state.catalog.cameras;
 const selectPromo = (state: State) => state.catalog.promo;
@@ -36,11 +32,11 @@ const getCurrentFilterByCategory = (state: State) => state.filter.currentFilterC
 const getCurrentFiltersByTypes = (state: State) => state.filter.currentFilterTypes;
 const getCurrentFiltersByLevels = (state: State) => state.filter.currentFilterLevels;
 
-const getCamerasInTheBasket = (state: State): Cameras => state.order.camerasInBasket;
-const getOrderSendingStatus = (state: State): FetchStatus => state.order.orderSendingStatus;
-const getCouponSendingStatus = (state: State): FetchStatus => state.order.couponSendingStatus;
+const getCamerasInTheBasket = (state: State) => state.order.camerasInBasket;
+const getOrderSendingStatus = (state: State) => state.order.orderSendingStatus;
+const getCouponSendingStatus = (state: State) => state.order.couponSendingStatus;
 const getCoupon = (state: State): string => state.order.coupon;
-const getDiscountCoupon = (state: State): CouponResponse => state.order.discountCoupon;
+const getDiscountCoupon = (state: State) => state.order.discountCoupon;
 
 
 export {
